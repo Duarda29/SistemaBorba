@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 package view;
+import bean.MebMenu;
+import dao.MenuDAO;
+import java.util.List;
 import tools.Util;
 
 
@@ -12,7 +15,10 @@ import tools.Util;
  * @author maria
  */
 public class JDlgMenuNovo extends javax.swing.JDialog {
-
+    
+MenuDAO menuDAO;
+MebMenu mebMenu;    
+MenuController menuController;
 JDlgMenuNovoIA jDlgMenuNovoIA;//declarou a variavel para tudo, global
 
     
@@ -23,6 +29,14 @@ JDlgMenuNovoIA jDlgMenuNovoIA;//declarou a variavel para tudo, global
         setLocationRelativeTo(null);
         jDlgMenuNovoIA = new JDlgMenuNovoIA(null, true);//ele esta chamando a variavel lá de cima, e atribuindo. Mesmo que que tenha a chave, não vai quebrar, vai continuar existendo.
        //se não tivesse global, quebraria
+       
+       
+        jDlgMenuNovoIA = new JDlgMenuNovoIA(null, true);
+        menuController = new MenuController();
+        menuDAO = new MenuDAO();
+        List lista = menuDAO.listAll();
+        menuController.setList(lista);
+        jTable1.setModel(menuController);
     }
 
    
@@ -113,9 +127,14 @@ JDlgMenuNovoIA jDlgMenuNovoIA;//declarou a variavel para tudo, global
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
         if(Util.perguntar("Deseja excluir o registro?") == true){
-
+            int sel = jTable1.getSelectedRow();
+            mebMenu = menuController.getBean(sel);
+            menuDAO.delete(mebMenu);
+            //atualizar a lista no jtable
+            List lista = menuDAO.listAll();
+            menuController.setList(lista);
         }else {
-            Util.mensagem("exclusão cancelada.");
+            Util.mensagem("Exclusão cancelada.");
         }
         
     }//GEN-LAST:event_jBtnExcluirActionPerformed

@@ -5,6 +5,8 @@
  */
 package tools;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -70,15 +72,22 @@ public class Util {
     }
     
     public static String doubleStr (double num) {
-        return "";
-    }
-    
-    public static Date strDate (String cad) {
         return null;
     }
     
-    public static String dateStr (Date cad) {
-        return "";
-    }
+   public static Date strDate(String cad){
+         try {
+             SimpleDateFormat formato = new SimpleDateFormat ("dd/MM/yyyy");
+             return formato.parse(cad);
+         } catch (ParseException ex){
+             System.out.println("Erro na conversão da data.");
+         }
+         return null;
+     }
+     
+     public static String dateStr(Date cad){
+         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+         return formato.format(cad);
+     }
     
 }

@@ -22,6 +22,8 @@ public class JDlgClientes extends javax.swing.JDialog {
     MaskFormatter mascaraCep;
     MaskFormatter mascaraCelular;
     MaskFormatter mascaraTelefoneResidencial;
+    public MebClientes mebClientes;
+    public ClientesDAO clientesDAO;
     
     public JDlgClientes(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -29,6 +31,11 @@ public class JDlgClientes extends javax.swing.JDialog {
         
          setTitle("Clientes");
         setLocationRelativeTo(null);
+        
+        Util.habilitar(false, jTxt_Meb_Codigo, jTxt_Meb_Nome, jTxt_Meb_Sobrenome, jFmt_Meb_Cpf, jTxt_Meb_Genero,jFmt_Meb_Rg,
+        jTxt_Meb_Endereco,jTxt_Meb_Bairro,jFmt_Meb_Cep, jTxt_Meb_NumCasa,jFmt_Meb_Celular, jCbo_Meb_Estado, jCbo_Meb_Pais,
+        jFmt_Meb_TelefoneResidencial,jTxt_Meb_Email,jBtn_Meb_Cancelar, jBtn_Meb_Confirmar);
+        Util.habilitar(true, jBtn_Meb_Incluir, jBtn_Meb_Alterar, jBtn_Meb_Excluir, jBtn_Meb_Pesquisar);
         
         
          try {
@@ -179,11 +186,11 @@ public class JDlgClientes extends javax.swing.JDialog {
 
         jLabel11.setText("Pais");
 
-        jCbo_Meb_Pais.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jCbo_Meb_Pais.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Brasil", "Paraguai" }));
 
         jLabel12.setText("Estados");
 
-        jCbo_Meb_Estado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jCbo_Meb_Estado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AC", "AL", "AP", "AM", "BA", "CE", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO", "DF", "PJC - Paraguai" }));
 
         jLabel13.setText("Celular");
 
@@ -424,11 +431,12 @@ public class JDlgClientes extends javax.swing.JDialog {
 
     private void jBtn_Meb_ExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn_Meb_ExcluirActionPerformed
 
-        if(Util.perguntar("Deseja excluir o registro?") == true){
-        }else {
-            Util.mensagem("exclusão cancelada.");
+         if (Util.perguntar("Deseja excluir o registro?") == true) {
+            mebClientes = viewBean();
+            clientesDAO.delete(mebClientes);
+        } else {
+            Util.mensagem("Exclusão cancelada.");
         }
-
         Util.limparCampos(jTxt_Meb_Codigo, jTxt_Meb_Nome, jTxt_Meb_Sobrenome,jTxt_Meb_Genero, jFmt_Meb_Cpf, jFmt_Meb_Rg, jTxt_Meb_Endereco, jTxt_Meb_Bairro, jFmt_Meb_Cep, jTxt_Meb_NumCasa, jCbo_Meb_Pais, jCbo_Meb_Estado, jFmt_Meb_Celular, jFmt_Meb_TelefoneResidencial,jTxt_Meb_Email);
 
     }//GEN-LAST:event_jBtn_Meb_ExcluirActionPerformed
@@ -436,13 +444,11 @@ public class JDlgClientes extends javax.swing.JDialog {
     private void jBtn_Meb_ConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn_Meb_ConfirmarActionPerformed
         //Aqui o beansta recebendo um bean
         //declarou um obejto/ bean no Usuarios e transaforma no viewBean();
-        MebClientes clientes = viewBean();
-        ClientesDAO clientesDAO = new ClientesDAO();//criou o dao
-
-        if(incluindo == true){
-            clientesDAO.insert(clientes); // inseriu no bean
-        }else{
-            clientesDAO.update(clientes); // alterou no bean
+         mebClientes = viewBean();
+        if (incluindo == true) {
+            clientesDAO.insert(mebClientes);
+        } else {
+            clientesDAO.update(mebClientes);
         }
         //pegou o que estava do view passou para o bean, do bean passou para o DAO e do DAO para o banco de dados// apagou os campos e habiliotu e desabilitou
 

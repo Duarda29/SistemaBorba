@@ -40,22 +40,22 @@ public class ClientesControle extends AbstractTableModel{ // esse controla o car
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {//quantidade Valor
         
-     MebClientes clientes = (MebClientes) lista.get(rowIndex); //vai pegar a linha se quiser algo específico, colocar o numero da linha do bd  
+     MebClientes mebClientes = (MebClientes) lista.get(rowIndex); //vai pegar a linha se quiser algo específico, colocar o numero da linha do bd  
         
 if ( columnIndex == 0) {
-         return clientes.getIdMebClientes();   
+         return mebClientes.getIdMebClientes();   
         }
 
 if ( columnIndex == 1) {
-         return clientes.getMebNome();   
+         return mebClientes.getMebNome();   
         }
 
 if ( columnIndex == 2) {
-         return clientes.getMebSobrenome();   
+         return mebClientes.getMebSobrenome();   
         }
 
 if ( columnIndex == 3) {
-         return clientes.getMebCpf();   
+         return mebClientes.getMebCpf();   
         }
 return "";
             }

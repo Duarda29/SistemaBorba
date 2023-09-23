@@ -27,6 +27,9 @@ public class JDlgClientesPesquisa extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         
+         setTitle("Pesquisar Clientes");
+        setLocationRelativeTo(null);
+        
         ClientesDAO clientesDAO = new ClientesDAO();
         List lista = clientesDAO.listAll();
         clientesControle.setList(lista);
@@ -66,7 +69,7 @@ public class JDlgClientesPesquisa extends javax.swing.JDialog {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Código", "Nome", "Sobrenome", "CPF"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -114,8 +117,8 @@ public class JDlgClientesPesquisa extends javax.swing.JDialog {
         // TODO add your handling code here:
 
         int rowSel = jTable1.getSelectedRow(); //pegar a linah selecionada
-        MebClientes clientes = clientesControle.getBean(rowSel);
-        jDlgClientes.beanView(clientes);
+        MebClientes mebClientes = clientesControle.getBean(rowSel);
+        jDlgClientes.beanView(mebClientes);
 
     }//GEN-LAST:event_jBtn_Meb_ConfirmarActionPerformed
 

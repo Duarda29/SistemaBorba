@@ -292,11 +292,9 @@
     <Component class="javax.swing.JComboBox" name="jCbo_Meb_Pais">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
+          <StringArray count="2">
+            <StringItem index="0" value="Brasil"/>
+            <StringItem index="1" value="Paraguai"/>
           </StringArray>
         </Property>
       </Properties>
@@ -312,11 +310,35 @@
     <Component class="javax.swing.JComboBox" name="jCbo_Meb_Estado">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
+          <StringArray count="28">
+            <StringItem index="0" value="AC"/>
+            <StringItem index="1" value="AL"/>
+            <StringItem index="2" value="AP"/>
+            <StringItem index="3" value="AM"/>
+            <StringItem index="4" value="BA"/>
+            <StringItem index="5" value="CE"/>
+            <StringItem index="6" value="ES"/>
+            <StringItem index="7" value="GO"/>
+            <StringItem index="8" value="MA"/>
+            <StringItem index="9" value="MT"/>
+            <StringItem index="10" value="MS"/>
+            <StringItem index="11" value="MG"/>
+            <StringItem index="12" value="PA"/>
+            <StringItem index="13" value="PB"/>
+            <StringItem index="14" value="PR"/>
+            <StringItem index="15" value="PE"/>
+            <StringItem index="16" value="PI"/>
+            <StringItem index="17" value="RJ"/>
+            <StringItem index="18" value="RN"/>
+            <StringItem index="19" value="RS"/>
+            <StringItem index="20" value="RO"/>
+            <StringItem index="21" value="RR"/>
+            <StringItem index="22" value="SC"/>
+            <StringItem index="23" value="SP"/>
+            <StringItem index="24" value="SE"/>
+            <StringItem index="25" value="TO"/>
+            <StringItem index="26" value="DF"/>
+            <StringItem index="27" value="PJC - Paraguai"/>
           </StringArray>
         </Property>
       </Properties>

@@ -1,10 +1,14 @@
 package bean;
-// Generated 14/09/2023 15:05:40 by Hibernate Tools 4.3.1
+// Generated 22/09/2023 14:26:08 by Hibernate Tools 4.3.1
 
 
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -99,6 +103,10 @@ public class MebProdutos  implements java.io.Serializable {
     public void setMebEntrega(String mebEntrega) {
         this.mebEntrega = mebEntrega;
     }
+
+
+
+
 
 }
 

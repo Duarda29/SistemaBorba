@@ -41,7 +41,7 @@ public class UsuariosDAO extends DAO_Abstract{
         criteria.add(Restrictions.eq("idMebUsuarios", id));//metodo estatico, porque é uma classe.// eq é equals // esse id é o parametro da loinha 44
         List lista = criteria.list();
         session.getTransaction().commit();
-        return lista;
+        return lista.get(0);
                
     }
 

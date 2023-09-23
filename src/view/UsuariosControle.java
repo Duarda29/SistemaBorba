@@ -40,22 +40,22 @@ public class UsuariosControle extends AbstractTableModel{ // esse controla o car
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {//quantidade Valor
         
-     MebUsuarios usuarios = (MebUsuarios) lista.get(rowIndex); //vai pegar a linha se quiser algo específico, colocar o numero da linha do bd  
+     MebUsuarios mebUsuarios = (MebUsuarios) lista.get(rowIndex); //vai pegar a linha se quiser algo específico, colocar o numero da linha do bd  
         
 if ( columnIndex == 0) {
-         return usuarios.getIdMebUsuarios();   
+         return mebUsuarios.getIdMebUsuarios();   
         }
 
 if ( columnIndex == 1) {
-         return usuarios.getMebNome();   
+         return mebUsuarios.getMebNome();   
         }
 
 if ( columnIndex == 2) {
-         return usuarios.getMebApelido();   
+         return mebUsuarios.getMebApelido();   
         }
 
 if ( columnIndex == 3) {
-         return usuarios.getMebCpf();   
+         return mebUsuarios.getMebCpf();   
         }
 return "";
             }

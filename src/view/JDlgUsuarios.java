@@ -24,17 +24,25 @@ public class JDlgUsuarios extends javax.swing.JDialog {
     //variavel
     //toda vez que declarar uma claase ou variavel, tem que ser local/global e declarar em cima do construtor
     private boolean incluindo;
-    MaskFormatter mascaraCpf; 
+    MaskFormatter mascaraCpf;
     MaskFormatter mascaraDataDeNascimento;
-    
-            //construtor 
+    public MebUsuarios mebUsuarios;
+    public UsuariosDAO usuariosDAO;
+
+    //construtor 
     public JDlgUsuarios(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        
+
         setTitle("Usuários");
         setLocationRelativeTo(null);
-        
+
+        usuariosDAO = new UsuariosDAO();
+
+        Util.habilitar(false, jTxt_Meb_Codigo, jTxt_Meb_Nome, jTxt_Meb_Apelido, jFmt_Meb_Cpf, jFmt_Meb_DataDeNascimento,
+                jPwf_Meb_Senha, jCbo_Meb_Nivel, jChb_Meb_Ativo, jBtn_Meb_Cancelar, jBtn_Meb_Confirmar);
+        Util.habilitar(true, jBtn_Meb_Incluir, jBtn_Meb_Alterar, jBtn_Meb_Excluir, jBtn_Meb_Pesquisar);
+
         try {
             mascaraCpf = new MaskFormatter("###.###.###-##");
             mascaraDataDeNascimento = new MaskFormatter("##/##/####");
@@ -44,70 +52,56 @@ public class JDlgUsuarios extends javax.swing.JDialog {
         jFmt_Meb_Cpf.setFormatterFactory(new DefaultFormatterFactory(mascaraCpf));
         jFmt_Meb_DataDeNascimento.setFormatterFactory(new DefaultFormatterFactory(mascaraDataDeNascimento));
     }
-    
-   
-    public  MebUsuarios viewBean(){
+
+    public MebUsuarios viewBean() {
         //pega da tela e joga para o bean
         //aqui está criando um bean, pegando as informações das telas e joga no bean para o dao
         //do view pro bean para o dao, depois quando retorna é ao contrário
         //cria o bean e retorna o bean lá em baixo da função. --> do view pro bean para o dao, depois quando retorna é ao contrário --> do dao para o bean e view
-          MebUsuarios usuarios = new MebUsuarios(); //criei um bean// estrutura padrão de um método
-        int id = Integer.valueOf(jTxt_Meb_Codigo.getText() );// converteu porque id não é string
-        usuarios.setIdMebUsuarios(id);
-        usuarios.setMebNome(jTxt_Meb_Nome.getText() );// pegando o que esta na tela e está joganfdo para dentro do  bean
-        usuarios.setMebApelido(jTxt_Meb_Apelido.getText() );
-        usuarios.setMebCpf(jFmt_Meb_Cpf.getText());
-        usuarios.setMebSenha(jPwf_Meb_Senha.getText());
-        
-        //convertendo 
+        MebUsuarios mebUsuarios = new MebUsuarios(); //criei um bean// estrutura padrão de um método
+        mebUsuarios.setIdMebUsuarios(Util.strInt(jTxt_Meb_Codigo.getText()));
+        mebUsuarios.setMebNome(jTxt_Meb_Nome.getText());// pegando o que esta na tela e está joganfdo para dentro do  bean
+        mebUsuarios.setMebApelido(jTxt_Meb_Apelido.getText());
+        mebUsuarios.setMebCpf(jFmt_Meb_Cpf.getText());
+        mebUsuarios.setMebDataNascimento(Util.strDate(jFmt_Meb_DataDeNascimento.getText()));
+        mebUsuarios.setMebSenha(jPwf_Meb_Senha.getText());
+        mebUsuarios.setMebNivel(jCbo_Meb_Nivel.getSelectedIndex());
+        mebUsuarios.setMebAtivo(jChb_Meb_Ativo.isSelected() == true ? "S" : "N");
+        mebUsuarios.setMebNivel(jCbo_Meb_Nivel.getSelectedIndex());
+
+        if (jChb_Meb_Ativo.isSelected() == true) {// se esta selecionado, manda o sim 
+            mebUsuarios.setMebAtivo("S");
+
+        } else {// senão, manda não
+            mebUsuarios.setMebAtivo("N");
+
+        }
+        return mebUsuarios;
+    }
+
+    //Usuarios(Classe?), objeto(bean?)
+    public void beanView(MebUsuarios mebUsuarios) {//para pesquisar criamos esse método.
+
+        //pega do bd, traz do bean e mostra na tela
+        //set espera string e o idUsuarios é um inteiro, então temos que  "converter"
+        String valor = String.valueOf(mebUsuarios.getIdMebUsuarios());
+        jTxt_Meb_Codigo.setText(valor);
+        jTxt_Meb_Nome.setText(mebUsuarios.getMebNome()); //não precisa converter porque já esta em string
+        jTxt_Meb_Apelido.setText(mebUsuarios.getMebApelido());
+        jFmt_Meb_Cpf.setText(mebUsuarios.getMebCpf());
+        //convertendo de data para string
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            usuarios.setMebDataNascimento(formato.parse(jFmt_Meb_DataDeNascimento.getText() ));
-        } catch (ParseException ex) {
-          //  Logger.getLogger(JDlgUsuarios.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("Erro Cabeçudo: "+ex.getMessage());
+        jFmt_Meb_DataDeNascimento.setText(formato.format(mebUsuarios.getMebDataNascimento()));
+        jPwf_Meb_Senha.setText(mebUsuarios.getMebSenha());
+        jCbo_Meb_Nivel.setSelectedIndex(mebUsuarios.getMebNivel()); //inteiro
+        if (mebUsuarios.getMebAtivo().equals("S") == true) {
+            jChb_Meb_Ativo.setSelected(true);
+
+        } else {
+            jChb_Meb_Ativo.setSelected(false);
         }
-
-        
-        usuarios.setMebNivel( jCbo_Meb_Nivel.getSelectedIndex());
-        
-        if(jChb_Meb_Ativo.isSelected() == true) {// se esta selecionado, manda o sim 
-        usuarios.setMebAtivo("S");
-        
-        }else{// senão, manda não
-        usuarios.setMebAtivo("N");
-
-        }
-        return usuarios;
     }
-    
-    
-                         //Usuarios(Classe?), objeto(bean?)
-    public void beanView(MebUsuarios usuarios){//para pesquisar criamos esse método.
-        
-            //pega do bd, traz do bean e mostra na tela
-                   
-            //set espera string e o idUsuarios é um inteiro, então temos que  "converter"
-            String valor = String .valueOf(usuarios.getIdMebUsuarios());
-            jTxt_Meb_Codigo.setText(valor); 
-            jTxt_Meb_Nome.setText(usuarios.getMebNome()); //não precisa converter porque já esta em string
-            jTxt_Meb_Apelido.setText(usuarios.getMebApelido());
-            jFmt_Meb_Cpf.setText(usuarios.getMebCpf());
-            //convertendo de data para string
-            
-            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-            jFmt_Meb_DataDeNascimento.setText(formato.format (usuarios.getMebDataNascimento() ));
 
-            jPwf_Meb_Senha.setText(usuarios.getMebSenha());
-            jCbo_Meb_Nivel.setSelectedIndex(usuarios.getMebNivel()); //inteiro
-            if(usuarios.getMebAtivo().equals("S")== true){ 
-                jChb_Meb_Ativo.setSelected(true);
-                
-            }else{
-                jChb_Meb_Ativo.setSelected(false);
-            }
-    }
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -320,63 +314,61 @@ public class JDlgUsuarios extends javax.swing.JDialog {
 
     private void jBtn_Meb_IncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn_Meb_IncluirActionPerformed
         //chamei o evento para poder ativar a função habilitar e liberar com campos para preencher
-        Util.habilitar(true, jTxt_Meb_Codigo, jTxt_Meb_Apelido, jTxt_Meb_Nome, jFmt_Meb_Cpf, jFmt_Meb_DataDeNascimento, jPwf_Meb_Senha, jCbo_Meb_Nivel, jChb_Meb_Ativo, jBtn_Meb_Cancelar, jBtn_Meb_Confirmar );        
+        Util.habilitar(true, jTxt_Meb_Codigo, jTxt_Meb_Apelido, jTxt_Meb_Nome, jFmt_Meb_Cpf, jFmt_Meb_DataDeNascimento, jPwf_Meb_Senha, jCbo_Meb_Nivel, jChb_Meb_Ativo, jBtn_Meb_Cancelar, jBtn_Meb_Confirmar);
         Util.habilitar(false, jBtn_Meb_Incluir, jBtn_Meb_Alterar, jBtn_Meb_Pesquisar, jBtn_Meb_Excluir);
-        Util.limparCampos(jTxt_Meb_Codigo, jTxt_Meb_Apelido, jTxt_Meb_Nome, jFmt_Meb_Cpf, jFmt_Meb_DataDeNascimento, jPwf_Meb_Senha, jCbo_Meb_Nivel, jChb_Meb_Ativo);    
+        Util.limparCampos(jTxt_Meb_Codigo, jTxt_Meb_Apelido, jTxt_Meb_Nome, jFmt_Meb_Cpf, jFmt_Meb_DataDeNascimento, jPwf_Meb_Senha, jCbo_Meb_Nivel, jChb_Meb_Ativo);
 
         incluindo = true;
-                
+
     }//GEN-LAST:event_jBtn_Meb_IncluirActionPerformed
 
     private void jBtn_Meb_AlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn_Meb_AlterarActionPerformed
         // TODO add your handling code here:
-        Util.habilitar(true, jTxt_Meb_Codigo, jTxt_Meb_Apelido, jTxt_Meb_Nome, jFmt_Meb_Cpf, jFmt_Meb_DataDeNascimento, jPwf_Meb_Senha, jCbo_Meb_Nivel, jChb_Meb_Ativo, jBtn_Meb_Cancelar, jBtn_Meb_Confirmar );        
-        Util.habilitar(false, jBtn_Meb_Incluir, jBtn_Meb_Alterar, jBtn_Meb_Excluir, jBtn_Meb_Pesquisar);         
-         //indica que está no meio de uma alteração
+        Util.habilitar(true, jTxt_Meb_Codigo, jTxt_Meb_Apelido, jTxt_Meb_Nome, jFmt_Meb_Cpf, jFmt_Meb_DataDeNascimento, jPwf_Meb_Senha, jCbo_Meb_Nivel, jChb_Meb_Ativo, jBtn_Meb_Cancelar, jBtn_Meb_Confirmar);
+        Util.habilitar(false, jBtn_Meb_Incluir, jBtn_Meb_Alterar, jBtn_Meb_Excluir, jBtn_Meb_Pesquisar);
+        //indica que está no meio de uma alteração
         incluindo = false;
     }//GEN-LAST:event_jBtn_Meb_AlterarActionPerformed
 
     private void jBtn_Meb_ExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn_Meb_ExcluirActionPerformed
-        
-         if(Util.perguntar("Deseja excluir o registro?") == true){    
-         }else {
-            Util.mensagem("exclusão cancelada.");
+
+        if (Util.perguntar("Deseja excluir o registro?") == true) {
+            mebUsuarios = viewBean();
+            usuariosDAO.delete(mebUsuarios);
+        } else {
+            Util.mensagem("Exclusão cancelada.");
         }
-            Util.limparCampos(jTxt_Meb_Codigo, jTxt_Meb_Apelido, jTxt_Meb_Nome, jFmt_Meb_Cpf, jFmt_Meb_DataDeNascimento, jPwf_Meb_Senha, jCbo_Meb_Nivel, jChb_Meb_Ativo);    
+        Util.limparCampos(jTxt_Meb_Codigo, jTxt_Meb_Apelido, jTxt_Meb_Nome, jFmt_Meb_Cpf, jFmt_Meb_DataDeNascimento, jPwf_Meb_Senha, jCbo_Meb_Nivel, jChb_Meb_Ativo);
     }//GEN-LAST:event_jBtn_Meb_ExcluirActionPerformed
 
     private void jBtn_Meb_ConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn_Meb_ConfirmarActionPerformed
-          //Aqui o beansta recebendo um bean
-          //declarou um obejto/ bean no Usuarios e transaforma no viewBean();
-     MebUsuarios usuarios = viewBean();
-     UsuariosDAO usuariosDAO = new UsuariosDAO();//criou o dao
-
-      if(incluindo == true){
-          usuariosDAO.insert(usuarios); // inseriu no bean
-      }else{
-          usuariosDAO.update(usuarios); // alterou no bean
-      }
-  //pegou o que estava do view passou para o bean, do bean passou para o DAO e do DAO para o banco de dados// apagou os campos e habiliotu e desabilitou
-        Util.limparCampos(jTxt_Meb_Codigo, jTxt_Meb_Apelido, jTxt_Meb_Nome, jFmt_Meb_Cpf, jFmt_Meb_DataDeNascimento, jPwf_Meb_Senha, jCbo_Meb_Nivel, jChb_Meb_Ativo);    
-        Util.habilitar(true, jBtn_Meb_Incluir, jBtn_Meb_Alterar, jBtn_Meb_Excluir, jBtn_Meb_Pesquisar );        
-        Util.habilitar(false,jTxt_Meb_Codigo, jTxt_Meb_Apelido, jTxt_Meb_Nome, jFmt_Meb_Cpf, jFmt_Meb_DataDeNascimento, jPwf_Meb_Senha, jCbo_Meb_Nivel, jChb_Meb_Ativo, jBtn_Meb_Cancelar, jBtn_Meb_Confirmar );
+        mebUsuarios = viewBean();
+        if (incluindo == true) {
+            usuariosDAO.insert(mebUsuarios);
+        } else {
+            usuariosDAO.update(mebUsuarios);
+        }
+        //pegou o que estava do view passou para o bean, do bean passou para o DAO e do DAO para o banco de dados// apagou os campos e habiliotu e desabilitou
+        Util.limparCampos(jTxt_Meb_Codigo, jTxt_Meb_Apelido, jTxt_Meb_Nome, jFmt_Meb_Cpf, jFmt_Meb_DataDeNascimento, jPwf_Meb_Senha, jCbo_Meb_Nivel, jChb_Meb_Ativo);
+        Util.habilitar(true, jBtn_Meb_Incluir, jBtn_Meb_Alterar, jBtn_Meb_Excluir, jBtn_Meb_Pesquisar);
+        Util.habilitar(false, jTxt_Meb_Codigo, jTxt_Meb_Apelido, jTxt_Meb_Nome, jFmt_Meb_Cpf, jFmt_Meb_DataDeNascimento, jPwf_Meb_Senha, jCbo_Meb_Nivel, jChb_Meb_Ativo, jBtn_Meb_Cancelar, jBtn_Meb_Confirmar);
     }//GEN-LAST:event_jBtn_Meb_ConfirmarActionPerformed
 
     private void jBtn_Meb_CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn_Meb_CancelarActionPerformed
-        Util.habilitar(true, jBtn_Meb_Incluir, jBtn_Meb_Alterar, jBtn_Meb_Excluir, jBtn_Meb_Pesquisar );        
-        Util.habilitar(false,jTxt_Meb_Codigo, jTxt_Meb_Apelido, jTxt_Meb_Nome, jFmt_Meb_Cpf, jFmt_Meb_DataDeNascimento, jPwf_Meb_Senha, jCbo_Meb_Nivel, jChb_Meb_Ativo, jBtn_Meb_Cancelar, jBtn_Meb_Confirmar );
-        Util.limparCampos(jTxt_Meb_Codigo, jTxt_Meb_Apelido, jTxt_Meb_Nome, jFmt_Meb_Cpf, jFmt_Meb_DataDeNascimento, jPwf_Meb_Senha, jCbo_Meb_Nivel, jChb_Meb_Ativo);    
+        Util.habilitar(true, jBtn_Meb_Incluir, jBtn_Meb_Alterar, jBtn_Meb_Excluir, jBtn_Meb_Pesquisar);
+        Util.habilitar(false, jTxt_Meb_Codigo, jTxt_Meb_Apelido, jTxt_Meb_Nome, jFmt_Meb_Cpf, jFmt_Meb_DataDeNascimento, jPwf_Meb_Senha, jCbo_Meb_Nivel, jChb_Meb_Ativo, jBtn_Meb_Cancelar, jBtn_Meb_Confirmar);
+        Util.limparCampos(jTxt_Meb_Codigo, jTxt_Meb_Apelido, jTxt_Meb_Nome, jFmt_Meb_Cpf, jFmt_Meb_DataDeNascimento, jPwf_Meb_Senha, jCbo_Meb_Nivel, jChb_Meb_Ativo);
         Util.mensagem("Operação cancelada");
     }//GEN-LAST:event_jBtn_Meb_CancelarActionPerformed
 
     private void jBtn_Meb_PesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn_Meb_PesquisarActionPerformed
-        
-  //chamei a tela de usuario pesquisa
-           JDlgUsuarioPesquisa jDlgUsuarioPesquisa= new  JDlgUsuarioPesquisa (null, true);
-           jDlgUsuarioPesquisa.setTelaAnterior(this); //esta chamando o metodo do usuario pesquisa
-           jDlgUsuarioPesquisa.setVisible(true); 
-        
-          
+
+        //chamei a tela de usuario pesquisa
+        JDlgUsuarioPesquisa jDlgUsuarioPesquisa = new JDlgUsuarioPesquisa(null, true);
+        jDlgUsuarioPesquisa.setTelaAnterior(this); //esta chamando o metodo do usuario pesquisa
+        jDlgUsuarioPesquisa.setVisible(true);
+
+
     }//GEN-LAST:event_jBtn_Meb_PesquisarActionPerformed
 
     private void jCbo_Meb_NivelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCbo_Meb_NivelActionPerformed
@@ -384,7 +376,7 @@ public class JDlgUsuarios extends javax.swing.JDialog {
     }//GEN-LAST:event_jCbo_Meb_NivelActionPerformed
 
     public static void main(String args[]) {
-        
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 JDlgUsuarios dialog = new JDlgUsuarios(new javax.swing.JFrame(), true);

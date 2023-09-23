@@ -46,11 +46,11 @@ Contributor(s):
     <property name="hibernate.connection.url">jdbc:mysql://10.7.0.51:33062/db_maria_borba?zeroDateTimeBehavior=convertToNull</property>
     <property name="hibernate.connection.username">maria_borba</property>
     <property name="hibernate.connection.password">maria_borba</property>
-    <mapping class="bean.MebVendas"/>
     <mapping class="bean.MebVendasProduto"/>
     <mapping class="bean.MebUsuarios"/>
     <mapping class="bean.MebClientes"/>
     <mapping class="bean.MebProdutos"/>
     <mapping class="bean.MebMenu"/>
+    <mapping class="bean.MebVendas"/>
   </session-factory>
 </hibernate-configuration>

@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 package view;
+import bean.MebProdutos;
+import dao.ProdutosDAO;
+import java.util.List;
 import tools.Util;
 
 /**
@@ -12,6 +15,9 @@ import tools.Util;
  */
 public class JDlgProdutosNovo extends javax.swing.JDialog {
 
+ProdutosDAO produtosDAO;    
+MebProdutos mebProdutos;
+ProdutosController produtosController;
 JDlgProdutosNovoIA jDlgProdutosNovoIA;//declarou a variavel para tudo, global
 
     public JDlgProdutosNovo(java.awt.Frame parent, boolean modal) {
@@ -21,6 +27,14 @@ JDlgProdutosNovoIA jDlgProdutosNovoIA;//declarou a variavel para tudo, global
         setLocationRelativeTo(null);
         jDlgProdutosNovoIA = new JDlgProdutosNovoIA(null, true);//ele esta chamando a variavel lá de cima, e atribuindo. Mesmo que que tenha a chave, não vai quebrar, vai continuar existendo.
        //se não tivesse global, quebraria
+       
+       
+       jDlgProdutosNovoIA = new JDlgProdutosNovoIA(null, true);
+        produtosController = new ProdutosController();
+        produtosDAO = new ProdutosDAO();
+        List lista = produtosDAO.listAll();
+        produtosController.setList(lista);
+        jTable1.setModel(produtosController);
     }
 
     
@@ -111,9 +125,14 @@ JDlgProdutosNovoIA jDlgProdutosNovoIA;//declarou a variavel para tudo, global
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
         if(Util.perguntar("Deseja excluir o registro?") == true){
-
+          int sel = jTable1.getSelectedRow();
+            mebProdutos = produtosController.getBean(sel);
+            produtosDAO.delete(mebProdutos);
+            //atualizar a lista no jtable
+            List lista = produtosDAO.listAll();
+            produtosController.setList(lista);
         }else {
-            Util.mensagem("exclusão cancelada.");
+            Util.mensagem("Exclusão cancelada.");
         }
 
     }//GEN-LAST:event_jBtnExcluirActionPerformed
