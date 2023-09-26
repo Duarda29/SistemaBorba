@@ -5,6 +5,7 @@ import dao.ClientesDAO;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
 import tools.Util;
@@ -31,6 +32,9 @@ public class JDlgClientes extends javax.swing.JDialog {
         
          setTitle("Clientes");
         setLocationRelativeTo(null);
+        
+                clientesDAO = new ClientesDAO();
+
         
         Util.habilitar(false, jTxt_Meb_Codigo, jTxt_Meb_Nome, jTxt_Meb_Sobrenome, jFmt_Meb_Cpf, jTxt_Meb_Genero,jFmt_Meb_Rg,
         jTxt_Meb_Endereco,jTxt_Meb_Bairro,jFmt_Meb_Cep, jTxt_Meb_NumCasa,jFmt_Meb_Celular, jCbo_Meb_Estado, jCbo_Meb_Pais,
@@ -431,11 +435,16 @@ public class JDlgClientes extends javax.swing.JDialog {
 
     private void jBtn_Meb_ExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn_Meb_ExcluirActionPerformed
 
-         if (Util.perguntar("Deseja excluir o registro?") == true) {
-            mebClientes = viewBean();
-            clientesDAO.delete(mebClientes);
-        } else {
-            Util.mensagem("Exclusão cancelada.");
+          int resp =  JOptionPane.showConfirmDialog(null, "Deseja excluir o registro?","Confirmar", JOptionPane.YES_NO_OPTION);// configura qual botão eu quero
+        if (resp == JOptionPane.YES_OPTION){// confirma que é a opção sim
+                           
+        MebClientes mebClientes = viewBean();
+        ClientesDAO clientesDAO = new ClientesDAO();
+        clientesDAO.delete(mebClientes); 
+        
+        }else {
+        JOptionPane.showMessageDialog(null, "Exclusão cancelada.","Alerta", 2 );
+        
         }
         Util.limparCampos(jTxt_Meb_Codigo, jTxt_Meb_Nome, jTxt_Meb_Sobrenome,jTxt_Meb_Genero, jFmt_Meb_Cpf, jFmt_Meb_Rg, jTxt_Meb_Endereco, jTxt_Meb_Bairro, jFmt_Meb_Cep, jTxt_Meb_NumCasa, jCbo_Meb_Pais, jCbo_Meb_Estado, jFmt_Meb_Celular, jFmt_Meb_TelefoneResidencial,jTxt_Meb_Email);
 

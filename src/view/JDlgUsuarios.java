@@ -11,6 +11,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
 import tools.Util;
@@ -332,11 +333,16 @@ public class JDlgUsuarios extends javax.swing.JDialog {
 
     private void jBtn_Meb_ExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn_Meb_ExcluirActionPerformed
 
-        if (Util.perguntar("Deseja excluir o registro?") == true) {
-            mebUsuarios = viewBean();
-            usuariosDAO.delete(mebUsuarios);
-        } else {
-            Util.mensagem("Exclusão cancelada.");
+        int resp =  JOptionPane.showConfirmDialog(null, "Deseja excluir o registro?","Confirmar", JOptionPane.YES_NO_OPTION);// configura qual botão eu quero
+        if (resp == JOptionPane.YES_OPTION){// confirma que é a opção sim
+                           
+        MebUsuarios mebUsuarios = viewBean();
+        UsuariosDAO usuariosDAO = new UsuariosDAO();
+        usuariosDAO.delete(mebUsuarios); 
+        
+        }else {
+        JOptionPane.showMessageDialog(null, "Exclusão cancelada.","Alerta", 2 );
+        
         }
         Util.limparCampos(jTxt_Meb_Codigo, jTxt_Meb_Apelido, jTxt_Meb_Nome, jFmt_Meb_Cpf, jFmt_Meb_DataDeNascimento, jPwf_Meb_Senha, jCbo_Meb_Nivel, jChb_Meb_Ativo);
     }//GEN-LAST:event_jBtn_Meb_ExcluirActionPerformed

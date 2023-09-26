@@ -59,7 +59,7 @@ JDlgProdutosNovoIA jDlgProdutosNovoIA;//declarou a variavel para tudo, global
                 {null, null, null, null}
             },
             new String [] {
-                "Código", "Nome", "Quantidade", "Complemento"
+                "Código", "Nome", "Quantidade", "Descrição"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -125,16 +125,16 @@ JDlgProdutosNovoIA jDlgProdutosNovoIA;//declarou a variavel para tudo, global
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
         if(Util.perguntar("Deseja excluir o registro?") == true){
-          int sel = jTable1.getSelectedRow();
+            int sel = jTable1.getSelectedRow();
             mebProdutos = produtosController.getBean(sel);
             produtosDAO.delete(mebProdutos);
             //atualizar a lista no jtable
             List lista = produtosDAO.listAll();
             produtosController.setList(lista);
-        }else {
-            Util.mensagem("Exclusão cancelada.");
+            Util.mensagem("Exclusão feita com sucesso");
+        }else{
+          Util.mensagem("Exclusao cancelada");
         }
-
     }//GEN-LAST:event_jBtnExcluirActionPerformed
 
     /**

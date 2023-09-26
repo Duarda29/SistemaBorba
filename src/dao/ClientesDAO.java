@@ -14,7 +14,7 @@ public class ClientesDAO extends DAO_Abstract {
     public void insert(Object object) {
          session.beginTransaction();// todas as conexão com os bancos de dados precisam de uma...
          session.save(object);
-         session.beginTransaction().commit();    }
+         session.getTransaction().commit();    }
 
     @Override
     public void update(Object object) {
@@ -22,7 +22,7 @@ public class ClientesDAO extends DAO_Abstract {
          session.flush();// para limpar o cash do hibernate para não enviar coisas erras
          session.clear();// para limpar o cash do hibernate para não enviar coisas erras
          session.update(object);
-         session.beginTransaction().commit();  
+         session.getTransaction().commit();  
     }
 
     @Override
@@ -31,14 +31,14 @@ public class ClientesDAO extends DAO_Abstract {
          session.flush();
          session.clear();
          session.delete(object);
-         session.beginTransaction().commit();
+         session.getTransaction().commit();
     }
 
     @Override
      public Object list(int id) {
        session.beginTransaction();
         Criteria criteria = session.createCriteria(MebClientes.class); // criteria não é para usar o SELECT * FROM
-        criteria.add(Restrictions.eq("idMebClientes", id));//metodo estatico, porque é uma classe.// eq é equals // esse id é o parametro da loinha 44
+        criteria.add(Restrictions.eq("id_meb_clientes", id));//metodo estatico, porque é uma classe.// eq é equals // esse id é o parametro da loinha 44
         List lista = criteria.list();
         session.getTransaction().commit();
         return lista;

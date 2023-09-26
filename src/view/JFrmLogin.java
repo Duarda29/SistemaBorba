@@ -22,6 +22,7 @@ public class JFrmLogin extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }
 
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -33,10 +34,10 @@ public class JFrmLogin extends javax.swing.JFrame {
 
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jPswSenha = new javax.swing.JPasswordField();
-        jTxtUsuario = new javax.swing.JTextField();
-        jBtnSair = new javax.swing.JButton();
-        jBtnConfirmar = new javax.swing.JButton();
+        jPsw_Meb_Senha = new javax.swing.JPasswordField();
+        jTxt_Meb_Usuario = new javax.swing.JTextField();
+        jBtn_Meb_Sair = new javax.swing.JButton();
+        jBtn_Meb_Confirmar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -44,25 +45,25 @@ public class JFrmLogin extends javax.swing.JFrame {
 
         jLabel4.setText("Senha");
 
-        jTxtUsuario.addActionListener(new java.awt.event.ActionListener() {
+        jTxt_Meb_Usuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTxtUsuarioActionPerformed(evt);
+                jTxt_Meb_UsuarioActionPerformed(evt);
             }
         });
 
-        jBtnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-cancelar-24.png"))); // NOI18N
-        jBtnSair.setText("Sair");
-        jBtnSair.addActionListener(new java.awt.event.ActionListener() {
+        jBtn_Meb_Sair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-cancelar-24.png"))); // NOI18N
+        jBtn_Meb_Sair.setText("Sair");
+        jBtn_Meb_Sair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnSairActionPerformed(evt);
+                jBtn_Meb_SairActionPerformed(evt);
             }
         });
 
-        jBtnConfirmar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-ok-24.png"))); // NOI18N
-        jBtnConfirmar.setText("Confirmar");
-        jBtnConfirmar.addActionListener(new java.awt.event.ActionListener() {
+        jBtn_Meb_Confirmar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-ok-24.png"))); // NOI18N
+        jBtn_Meb_Confirmar.setText("Confirmar");
+        jBtn_Meb_Confirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnConfirmarActionPerformed(evt);
+                jBtn_Meb_ConfirmarActionPerformed(evt);
             }
         });
 
@@ -74,13 +75,13 @@ public class JFrmLogin extends javax.swing.JFrame {
                 .addGap(64, 64, 64)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jBtnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jBtn_Meb_Sair, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jBtnConfirmar))
+                        .addComponent(jBtn_Meb_Confirmar))
                     .addComponent(jLabel4)
                     .addComponent(jLabel3)
-                    .addComponent(jTxtUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
-                    .addComponent(jPswSenha))
+                    .addComponent(jTxt_Meb_Usuario, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
+                    .addComponent(jPsw_Meb_Senha))
                 .addContainerGap(76, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -89,34 +90,34 @@ public class JFrmLogin extends javax.swing.JFrame {
                 .addGap(64, 64, 64)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTxtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTxt_Meb_Usuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(19, 19, 19)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPswSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPsw_Meb_Senha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBtnSair)
-                    .addComponent(jBtnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jBtn_Meb_Sair)
+                    .addComponent(jBtn_Meb_Confirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(65, 65, 65))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTxtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtUsuarioActionPerformed
+    private void jTxt_Meb_UsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxt_Meb_UsuarioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTxtUsuarioActionPerformed
+    }//GEN-LAST:event_jTxt_Meb_UsuarioActionPerformed
 
-    private void jBtnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSairActionPerformed
+    private void jBtn_Meb_SairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn_Meb_SairActionPerformed
         // TODO add your handling code here:
         System.exit(0);
-    }//GEN-LAST:event_jBtnSairActionPerformed
+    }//GEN-LAST:event_jBtn_Meb_SairActionPerformed
 
-    private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
+    private void jBtn_Meb_ConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn_Meb_ConfirmarActionPerformed
         // TODO add your handling code here:
 
-        if(jTxtUsuario.getText().equals("Borba") && jPswSenha.getText().equals("1991") || jTxtUsuario.getText().equals("Pizzaria") && jPswSenha.getText().equals("12345")){
+        if(jTxt_Meb_Usuario.getText().equals("Borba") && jPsw_Meb_Senha.getText().equals("1991") || jTxt_Meb_Usuario.getText().equals("Pizzaria") && jPsw_Meb_Senha.getText().equals("12345")){
             JOptionPane.showMessageDialog(null, "ACESSO PERMITIDO");
             JFrmPrincipal jFrmPrincipal= new JFrmPrincipal();
             jFrmPrincipal.setVisible(true);
@@ -127,7 +128,7 @@ public class JFrmLogin extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "ACESSO NEGADO");
         }
 
-    }//GEN-LAST:event_jBtnConfirmarActionPerformed
+    }//GEN-LAST:event_jBtn_Meb_ConfirmarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -168,11 +169,11 @@ public class JFrmLogin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBtnConfirmar;
-    private javax.swing.JButton jBtnSair;
+    private javax.swing.JButton jBtn_Meb_Confirmar;
+    private javax.swing.JButton jBtn_Meb_Sair;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JPasswordField jPswSenha;
-    private javax.swing.JTextField jTxtUsuario;
+    private javax.swing.JPasswordField jPsw_Meb_Senha;
+    private javax.swing.JTextField jTxt_Meb_Usuario;
     // End of variables declaration//GEN-END:variables
 }

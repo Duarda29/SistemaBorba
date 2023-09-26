@@ -14,7 +14,7 @@ public class ProdutosDAO extends DAO_Abstract{
    public void insert(Object object) {
          session.beginTransaction();// todas as conexão com os bancos de dados precisam de uma...
          session.save(object);
-         session.beginTransaction().commit();
+         session.getTransaction().commit();
     }
 
     @Override
@@ -23,7 +23,7 @@ public class ProdutosDAO extends DAO_Abstract{
          session.flush();// para limpar o cash do hibernate para não enviar coisas erras
          session.clear();// para limpar o cash do hibernate para não enviar coisas erras
          session.update(object);
-         session.beginTransaction().commit();
+         session.getTransaction().commit();
     }
 
     @Override
@@ -32,7 +32,7 @@ public class ProdutosDAO extends DAO_Abstract{
          session.flush();
          session.clear();
          session.delete(object);
-         session.beginTransaction().commit(); 
+         session.getTransaction().commit(); 
     }
 
     @Override

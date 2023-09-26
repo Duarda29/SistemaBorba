@@ -16,8 +16,8 @@ import tools.Util;
  */
 public class JDlgMenuNovo extends javax.swing.JDialog {
     
-MenuDAO menuDAO;
-MebMenu mebMenu;    
+ public MenuDAO menuDAO;
+ public MebMenu mebMenu;    
 MenuController menuController;
 JDlgMenuNovoIA jDlgMenuNovoIA;//declarou a variavel para tudo, global
 
@@ -27,6 +27,9 @@ JDlgMenuNovoIA jDlgMenuNovoIA;//declarou a variavel para tudo, global
         initComponents();
         setTitle("Cadastro do Menu");
         setLocationRelativeTo(null);
+        
+          menuDAO = new MenuDAO();
+
         jDlgMenuNovoIA = new JDlgMenuNovoIA(null, true);//ele esta chamando a variavel lá de cima, e atribuindo. Mesmo que que tenha a chave, não vai quebrar, vai continuar existendo.
        //se não tivesse global, quebraria
        
@@ -133,8 +136,9 @@ JDlgMenuNovoIA jDlgMenuNovoIA;//declarou a variavel para tudo, global
             //atualizar a lista no jtable
             List lista = menuDAO.listAll();
             menuController.setList(lista);
-        }else {
-            Util.mensagem("Exclusão cancelada.");
+            Util.mensagem("Exclusão feita com sucesso");
+        }else{
+          Util.mensagem("Exclusao cancelada");
         }
         
     }//GEN-LAST:event_jBtnExcluirActionPerformed

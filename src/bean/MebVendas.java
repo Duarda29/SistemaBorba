@@ -1,5 +1,5 @@
 package bean;
-// Generated 22/09/2023 14:26:08 by Hibernate Tools 4.3.1
+// Generated 25/09/2023 11:58:18 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -42,7 +42,7 @@ public class MebVendas  implements java.io.Serializable {
         this.mebUsuarios = mebUsuarios;
         this.mebTotal = mebTotal;
     }
-    public MebVendas(int idMebVendas, MebClientes mebClientes, MebUsuarios mebUsuarios, double mebTotal, Date mebData) {
+    public MebVendas(int idMebVendas, MebClientes mebClientes, MebUsuarios mebUsuarios, double mebTotal, Date mebData, Set mebVendasProdutos) {
        this.idMebVendas = idMebVendas;
        this.mebClientes = mebClientes;
        this.mebUsuarios = mebUsuarios;
@@ -101,8 +101,6 @@ public class MebVendas  implements java.io.Serializable {
     public void setMebData(Date mebData) {
         this.mebData = mebData;
     }
-
-
 
 }
 

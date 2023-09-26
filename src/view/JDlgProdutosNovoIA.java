@@ -115,7 +115,7 @@ JDlgProdutosNovo jDlgProdutosNovo;
 
         jLabel3.setText("Categoria");
 
-        jCbo_Meb_Categoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jCbo_Meb_Categoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pizzas", "Bebidas" }));
 
         jChb_Meb_Entrega.setText("Entrega");
         jChb_Meb_Entrega.addActionListener(new java.awt.event.ActionListener() {
@@ -126,7 +126,7 @@ JDlgProdutosNovo jDlgProdutosNovo;
 
         jLabel4.setText("Quantidade");
 
-        jLabel5.setText("Complemento");
+        jLabel5.setText("Descrição");
 
         jTxt_Meb_Complemento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

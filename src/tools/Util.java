@@ -54,9 +54,12 @@ public class Util {
     }
 
     public static boolean perguntar(String cadeia) {
-        JOptionPane.showConfirmDialog(null, cadeia, "Perguntar", JOptionPane.YES_NO_OPTION);
-        
-        return false; //se for botão yes, vai retornar true. Se fot clicar no botão no, vai retornar  false fazer
+       int resp =  JOptionPane.showConfirmDialog(null, "Deseja excluir o registro",
+       "confirmar", JOptionPane.YES_NO_OPTION);
+       if (resp == JOptionPane.YES_OPTION){
+       return true;
+       }else {
+       return false;}     
      }
     
     public static int strInt(String cad){
@@ -64,15 +67,15 @@ public class Util {
     }
     
     public static String intStr(int num){
-        return "";
+        return String.valueOf(num);
     }
     
     public static double strDouble (String cad) {
-        return 0;
+        return Integer.valueOf(cad);
     }
     
     public static String doubleStr (double num) {
-        return null;
+        return String.valueOf(num);
     }
     
    public static Date strDate(String cad){

@@ -81,15 +81,15 @@ JDlgMenuNovo jDlgMenuNovo;
             }
         });
 
-        jCbo_Meb_Pizza.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jCbo_Meb_Pizza.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Calabresa", "Frango c/ Catupity", "Napolitano", "Abacaxi", "Portuguesa", "4 Queijos", "Moda da casa" }));
 
         jLabel3.setText("Pizza");
 
-        jCbo_Meb_Bebidas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jCbo_Meb_Bebidas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Suco de Laranja", "Suco de Abacaxi ", "Suco de Uva", "Suco de Acerola", "Fanta Uva", "Fanta Laranja", "Fanta Guarana", "Cola-Cola", "Pepsi", "Conti-Cola", "Água", " " }));
 
         jLabel4.setText("Bebidas");
 
-        jCbo_Meb_tamanhos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jCbo_Meb_tamanhos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pequena", "Média", "Grande", "Extra Grande" }));
 
         jLabel5.setText("Tamanhos");
 

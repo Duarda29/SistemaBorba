@@ -107,11 +107,14 @@
     <Component class="javax.swing.JComboBox" name="jCbo_Meb_Pizza">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
+          <StringArray count="7">
+            <StringItem index="0" value="Calabresa"/>
+            <StringItem index="1" value="Frango c/ Catupity"/>
+            <StringItem index="2" value="Napolitano"/>
+            <StringItem index="3" value="Abacaxi"/>
+            <StringItem index="4" value="Portuguesa"/>
+            <StringItem index="5" value="4 Queijos"/>
+            <StringItem index="6" value="Moda da casa"/>
           </StringArray>
         </Property>
       </Properties>
@@ -127,11 +130,19 @@
     <Component class="javax.swing.JComboBox" name="jCbo_Meb_Bebidas">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
+          <StringArray count="12">
+            <StringItem index="0" value="Suco de Laranja"/>
+            <StringItem index="1" value="Suco de Abacaxi "/>
+            <StringItem index="2" value="Suco de Uva"/>
+            <StringItem index="3" value="Suco de Acerola"/>
+            <StringItem index="4" value="Fanta Uva"/>
+            <StringItem index="5" value="Fanta Laranja"/>
+            <StringItem index="6" value="Fanta Guarana"/>
+            <StringItem index="7" value="Cola-Cola"/>
+            <StringItem index="8" value="Pepsi"/>
+            <StringItem index="9" value="Conti-Cola"/>
+            <StringItem index="10" value="&#xc1;gua"/>
+            <StringItem index="11" value=" "/>
           </StringArray>
         </Property>
       </Properties>
@@ -148,10 +159,10 @@
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
+            <StringItem index="0" value="Pequena"/>
+            <StringItem index="1" value="M&#xe9;dia"/>
+            <StringItem index="2" value="Grande"/>
+            <StringItem index="3" value="Extra Grande"/>
           </StringArray>
         </Property>
       </Properties>

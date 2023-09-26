@@ -41,10 +41,10 @@ Contributor(s):
 -->
 <hibernate-reverse-engineering>
   <schema-selection match-catalog="db_maria_borba"/>
-  <table-filter match-name="meb_produtos"/>
-  <table-filter match-name="meb_usuarios"/>
   <table-filter match-name="meb_menu"/>
+  <table-filter match-name="meb_vendasProduto"/>
+  <table-filter match-name="meb_usuarios"/>
+  <table-filter match-name="meb_produtos"/>
   <table-filter match-name="meb_vendas"/>
   <table-filter match-name="meb_clientes"/>
-  <table-filter match-name="meb_vendasProduto"/>
 </hibernate-reverse-engineering>
