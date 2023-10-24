@@ -204,7 +204,8 @@ public class JFrmPrincipal extends javax.swing.JFrame {
 
     private void jMnu_Meb_VendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMnu_Meb_VendasActionPerformed
         // TODO add your handling code here:
- 
+ JDlgVendas jDlgVendas = new  JDlgVendas (null, true);
+        jDlgVendas.setVisible(true);
         
     }//GEN-LAST:event_jMnu_Meb_VendasActionPerformed
 

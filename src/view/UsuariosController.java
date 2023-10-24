@@ -9,7 +9,7 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author maria
  */
-public class UsuariosControle extends AbstractTableModel{ // esse controla o carinha do usuarioPesquisar
+public class UsuariosController extends AbstractTableModel{ // esse controla o carinha do usuarioPesquisar
     
     //Tem esses três métodos porque é um dos poucos requerimentos para criar esse método abstrato
     
@@ -18,6 +18,7 @@ public class UsuariosControle extends AbstractTableModel{ // esse controla o car
     public void setList(List lista){
     
        this.lista = lista; //colocar o this porque esta se referindo a lista da classe
+       this.fireTableDataChanged();
         
     }
     
@@ -57,6 +58,10 @@ if ( columnIndex == 2) {
 if ( columnIndex == 3) {
          return mebUsuarios.getMebCpf();   
         }
+if ( columnIndex == 4) {
+         return mebUsuarios.getMebNivel();   
+        }
+
 return "";
             }
     
@@ -79,7 +84,9 @@ return "";
         if ( column == 3) {
          return "Cpf";   
         }
-        
+        if (column == 4) {
+            return "Nivel";
+        }
         
         return "";
     }

@@ -9,7 +9,7 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author maria
  */
-public class ClientesControle extends AbstractTableModel{ // esse controla o carinha do usuarioPesquisar
+public class ClientesController extends AbstractTableModel{ // esse controla o carinha do usuarioPesquisar
     
     //Tem esses três métodos porque é um dos poucos requerimentos para criar esse método abstrato
     

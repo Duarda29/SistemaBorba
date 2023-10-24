@@ -3,6 +3,7 @@ package dao;
 import bean.MebUsuarios;
 import java.util.List;
 import org.hibernate.Criteria;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 
 
@@ -53,4 +54,51 @@ public class UsuariosDAO extends DAO_Abstract{
         session.getTransaction().commit();
         return lista;
     }  
+     public List listNome(String mebNome){
+        session.beginTransaction();
+        Criteria crit = session.createCriteria(MebUsuarios.class);
+        crit.add(Restrictions.like("mebNome", mebNome, MatchMode.ANYWHERE));
+        List lista = crit.list();
+        session.getTransaction().commit();
+        return lista;
+    }
+    
+    public List listCpf(String mebCpf){
+        session.beginTransaction();
+        Criteria crit = session.createCriteria(MebUsuarios.class);
+        crit.add(Restrictions.like("mebCpf", mebCpf, MatchMode.ANYWHERE));
+        List lista = crit.list();
+        session.getTransaction().commit();
+        return lista;
+    }
+    
+    
+    public List listNomeCpf(String mebNome, String mebCpf){
+        session.beginTransaction();
+        Criteria crit = session.createCriteria(MebUsuarios.class);
+        crit.add(Restrictions.like("mebNome", mebNome, MatchMode.ANYWHERE));
+        crit.add(Restrictions.like("mebCpf", mebCpf, MatchMode.ANYWHERE));
+        List lista = crit.list();
+        session.getTransaction().commit();
+        return lista;
+    }
+    
+    public List listNivel(int mebNivel){
+        session.beginTransaction();
+        Criteria crit = session.createCriteria(MebUsuarios.class);
+        crit.add(Restrictions.ge("mebNivel", mebNivel));
+        List lista = crit.list();
+        session.getTransaction().commit();
+        return lista;
+    }
+    
+     public List listNomeNivel(String mebNome, int mebNivel){
+        session.beginTransaction();
+        Criteria crit = session.createCriteria(MebUsuarios.class);
+        crit.add(Restrictions.like("mebNome", mebNome, MatchMode.ANYWHERE));
+        crit.add(Restrictions.ge("mebNivel", mebNivel));
+        List lista = crit.list();
+        session.getTransaction().commit();
+        return lista;
+    }
 }

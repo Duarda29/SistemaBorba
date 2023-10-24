@@ -17,7 +17,7 @@ public class JDlgClientesPesquisa extends javax.swing.JDialog {
 
     private JDlgClientes jDlgClientes; //metodo privado
     
-    private  ClientesControle clientesControle = new ClientesControle(); //deixou como global
+    private  ClientesController clientesController = new ClientesController(); //deixou como global
 
     
     /**
@@ -32,8 +32,8 @@ public class JDlgClientesPesquisa extends javax.swing.JDialog {
         
         ClientesDAO clientesDAO = new ClientesDAO();
         List lista = clientesDAO.listAll();
-        clientesControle.setList(lista);
-        jTable1.setModel(clientesControle); //esta falando que o usuariosControle possui o controle da tabela lá
+        clientesController.setList(lista);
+        jTable1.setModel(clientesController); //esta falando que o usuariosControle possui o controle da tabela lá
         
     }
     public void setTelaAnterior(JDlgClientes jDlgClientes){
@@ -117,7 +117,7 @@ public class JDlgClientesPesquisa extends javax.swing.JDialog {
         // TODO add your handling code here:
 
         int rowSel = jTable1.getSelectedRow(); //pegar a linah selecionada
-        MebClientes mebClientes = clientesControle.getBean(rowSel);
+        MebClientes mebClientes = clientesController.getBean(rowSel);
         jDlgClientes.beanView(mebClientes);
 
     }//GEN-LAST:event_jBtn_Meb_ConfirmarActionPerformed
