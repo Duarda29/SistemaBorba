@@ -3,6 +3,7 @@ package dao;
 import bean.MebProdutos;
 import java.util.List;
 import org.hibernate.Criteria;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 /**
  *
@@ -50,6 +51,33 @@ public class ProdutosDAO extends DAO_Abstract{
         session.beginTransaction();
         Criteria criteria = session.createCriteria(MebProdutos.class); // criteria não é para usar o SELECT * FROM
         List lista = criteria.list();
+        session.getTransaction().commit();
+        return lista;
+    }
+      public List listNome(String mebNomeProduto){
+        session.beginTransaction();
+        Criteria crit = session.createCriteria(MebProdutos.class);
+        crit.add(Restrictions.like("mebNomeProduto", mebNomeProduto, MatchMode.ANYWHERE));
+        List lista = crit.list();
+        session.getTransaction().commit();
+        return lista;
+    }
+    
+    public List listPais(int mebCategoria){
+        session.beginTransaction();
+        Criteria crit = session.createCriteria(MebProdutos.class);
+        crit.add(Restrictions.ge("mebCategoria", mebCategoria));
+        List lista = crit.list();
+        session.getTransaction().commit();
+        return lista;
+    }
+    
+      public List listNomePais(String mebNomeProduto, int mebCategoria){
+        session.beginTransaction();
+        Criteria crit = session.createCriteria(MebProdutos.class);
+        crit.add(Restrictions.like("mebNomeProduto", mebNomeProduto, MatchMode.ANYWHERE));
+        crit.add(Restrictions.ge("mebCategoria", mebCategoria));
+        List lista = crit.list();
         session.getTransaction().commit();
         return lista;
     }

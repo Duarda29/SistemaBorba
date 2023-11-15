@@ -57,5 +57,33 @@ public class MenuDAO extends DAO_Abstract{
         session.getTransaction().commit();
         return lista;
     }
+     
+     public List listPizza(int mebPizza){
+        session.beginTransaction();
+        Criteria crit = session.createCriteria(MebMenu.class);
+        crit.add(Restrictions.ge("mebPizza", mebPizza));
+        List lista = crit.list();
+        session.getTransaction().commit();
+        return lista;
+    }
+    
+     public List listTamanhos(int mebTamanhos){
+        session.beginTransaction();
+        Criteria crit = session.createCriteria(MebMenu.class);
+        crit.add(Restrictions.ge("mebTamanhos", mebTamanhos));
+        List lista = crit.list();
+        session.getTransaction().commit();
+        return lista;
+    }
+    
+      public List listPizzaTamanhos(int mebPizza, int mebTamanhos){
+        session.beginTransaction();
+        Criteria crit = session.createCriteria(MebMenu.class);
+        crit.add(Restrictions.ge("mebpizza", mebPizza));
+        crit.add(Restrictions.ge("mebTamanhos", mebTamanhos));
+        List lista = crit.list();
+        session.getTransaction().commit();
+        return lista;
+    }
     
 }

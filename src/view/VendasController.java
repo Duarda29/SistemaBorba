@@ -1,7 +1,7 @@
 
 package view;
 
-import bean.MebClientes;
+import bean.MebVendas;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
@@ -9,7 +9,7 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author maria
  */
-public class ClientesController extends AbstractTableModel{ // esse controla o carinha do usuarioPesquisar
+public class VendasController extends AbstractTableModel{ // esse controla o carinha do usuarioPesquisar
     
     //Tem esses três métodos porque é um dos poucos requerimentos para criar esse método abstrato
     
@@ -18,11 +18,12 @@ public class ClientesController extends AbstractTableModel{ // esse controla o c
     public void setList(List lista){
     
        this.lista = lista; //colocar o this porque esta se referindo a lista da classe
-       this.fireTableDataChanged();// para atualizar a tabela
+       this.fireTableDataChanged();
+        
     }
     
-    public MebClientes getBean(int row){ //pegar a linha do bean
-    return (MebClientes) lista.get(row);
+    public MebVendas getBean(int row){ //pegar a linha do bean
+    return (MebVendas) lista.get(row);
     }
     
 
@@ -40,23 +41,29 @@ public class ClientesController extends AbstractTableModel{ // esse controla o c
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {//quantidade Valor
         
-     MebClientes mebClientes = (MebClientes) lista.get(rowIndex); //vai pegar a linha se quiser algo específico, colocar o numero da linha do bd  
+     MebVendas mebVendas = (MebVendas) lista.get(rowIndex); //vai pegar a linha se quiser algo específico, colocar o numero da linha do bd  
         
 if ( columnIndex == 0) {
-         return mebClientes.getIdMebClientes();   
+         return mebVendas.getIdMebVendas();   
         }
 
 if ( columnIndex == 1) {
-         return mebClientes.getMebNome();   
+         return mebVendas.getMebClientes();   
         }
 
 if ( columnIndex == 2) {
-         return mebClientes.getMebSobrenome();   
+         return mebVendas.getMebUsuarios();   
         }
 
 if ( columnIndex == 3) {
-         return mebClientes.getMebEstado();   
+         return mebVendas.getMebData();   
         }
+
+if ( columnIndex == 4) {
+         return mebVendas.getMebTotal();   
+        }
+
+
 return "";
             }
     
@@ -69,17 +76,21 @@ return "";
         }
         
         if ( column == 1) {
-         return "Nome";   
+         return "Clientes";   
         }
         
         if ( column == 2) {
-         return "Sobrenome";   
+         return "Usuarios";   
         }
         
         if ( column == 3) {
-         return "Estado";   
+         return "Data";   
         }
         
+        if ( column == 4) {
+         return "Total";   
+        }
+      
         
         return "";
     }

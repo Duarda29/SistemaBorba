@@ -56,6 +56,7 @@ JDlgProdutosNovo jDlgProdutosNovo;
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel6 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jBtn_Meb_Incluir = new javax.swing.JButton();
         jBtn_Meb_Alterar = new javax.swing.JButton();
@@ -70,6 +71,8 @@ JDlgProdutosNovo jDlgProdutosNovo;
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jTxt_Meb_Complemento = new javax.swing.JTextField();
+
+        jLabel6.setText("jLabel6");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -115,7 +118,7 @@ JDlgProdutosNovo jDlgProdutosNovo;
 
         jLabel3.setText("Categoria");
 
-        jCbo_Meb_Categoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pizzas", "Bebidas" }));
+        jCbo_Meb_Categoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pizzas", "Bebidas", "Pizza e Bebida" }));
 
         jChb_Meb_Entrega.setText("Entrega");
         jChb_Meb_Entrega.addActionListener(new java.awt.event.ActionListener() {
@@ -273,6 +276,7 @@ JDlgProdutosNovo jDlgProdutosNovo;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTxt_Meb_Codigo;
     private javax.swing.JTextField jTxt_Meb_Complemento;

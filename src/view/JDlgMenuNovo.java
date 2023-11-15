@@ -48,9 +48,9 @@ JDlgMenuNovoIA jDlgMenuNovoIA;//declarou a variavel para tudo, global
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jBtnIncluir = new javax.swing.JButton();
-        jBtnAlterar = new javax.swing.JButton();
-        jBtnExcluir = new javax.swing.JButton();
+        jBtn_Meb_Incluir = new javax.swing.JButton();
+        jBtn_Meb_Alterar = new javax.swing.JButton();
+        jBtn_Meb_Excluir = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
@@ -58,32 +58,32 @@ JDlgMenuNovoIA jDlgMenuNovoIA;//declarou a variavel para tudo, global
 
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jBtnIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-divisa-circulada-acima-24.png"))); // NOI18N
-        jBtnIncluir.setText("Incluir");
-        jBtnIncluir.addActionListener(new java.awt.event.ActionListener() {
+        jBtn_Meb_Incluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-divisa-circulada-acima-24.png"))); // NOI18N
+        jBtn_Meb_Incluir.setText("Incluir");
+        jBtn_Meb_Incluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnIncluirActionPerformed(evt);
+                jBtn_Meb_IncluirActionPerformed(evt);
             }
         });
-        jPanel1.add(jBtnIncluir);
+        jPanel1.add(jBtn_Meb_Incluir);
 
-        jBtnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-alterar-25.png"))); // NOI18N
-        jBtnAlterar.setText("Alterar");
-        jBtnAlterar.addActionListener(new java.awt.event.ActionListener() {
+        jBtn_Meb_Alterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-alterar-25.png"))); // NOI18N
+        jBtn_Meb_Alterar.setText("Alterar");
+        jBtn_Meb_Alterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnAlterarActionPerformed(evt);
+                jBtn_Meb_AlterarActionPerformed(evt);
             }
         });
-        jPanel1.add(jBtnAlterar);
+        jPanel1.add(jBtn_Meb_Alterar);
 
-        jBtnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-excluir-24.png"))); // NOI18N
-        jBtnExcluir.setText("Excluir");
-        jBtnExcluir.addActionListener(new java.awt.event.ActionListener() {
+        jBtn_Meb_Excluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-excluir-24.png"))); // NOI18N
+        jBtn_Meb_Excluir.setText("Excluir");
+        jBtn_Meb_Excluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnExcluirActionPerformed(evt);
+                jBtn_Meb_ExcluirActionPerformed(evt);
             }
         });
-        jPanel1.add(jBtnExcluir);
+        jPanel1.add(jBtn_Meb_Excluir);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -117,18 +117,18 @@ JDlgMenuNovoIA jDlgMenuNovoIA;//declarou a variavel para tudo, global
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirActionPerformed
+    private void jBtn_Meb_IncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn_Meb_IncluirActionPerformed
         // TODO add your handling code here:
         jDlgMenuNovoIA.setTitle("Inclusão");
         jDlgMenuNovoIA.setVisible(true);
-    }//GEN-LAST:event_jBtnIncluirActionPerformed
+    }//GEN-LAST:event_jBtn_Meb_IncluirActionPerformed
 
-    private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
+    private void jBtn_Meb_AlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn_Meb_AlterarActionPerformed
         jDlgMenuNovoIA.setTitle("Alteração");
         jDlgMenuNovoIA.setVisible(true);
-    }//GEN-LAST:event_jBtnAlterarActionPerformed
+    }//GEN-LAST:event_jBtn_Meb_AlterarActionPerformed
 
-    private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
+    private void jBtn_Meb_ExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn_Meb_ExcluirActionPerformed
         if(Util.perguntar("Deseja excluir o registro?") == true){
             int sel = jTable1.getSelectedRow();
             mebMenu = menuController.getBean(sel);
@@ -141,7 +141,7 @@ JDlgMenuNovoIA jDlgMenuNovoIA;//declarou a variavel para tudo, global
           Util.mensagem("Exclusao cancelada");
         }
         
-    }//GEN-LAST:event_jBtnExcluirActionPerformed
+    }//GEN-LAST:event_jBtn_Meb_ExcluirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -186,9 +186,9 @@ JDlgMenuNovoIA jDlgMenuNovoIA;//declarou a variavel para tudo, global
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBtnAlterar;
-    private javax.swing.JButton jBtnExcluir;
-    private javax.swing.JButton jBtnIncluir;
+    private javax.swing.JButton jBtn_Meb_Alterar;
+    private javax.swing.JButton jBtn_Meb_Excluir;
+    private javax.swing.JButton jBtn_Meb_Incluir;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;

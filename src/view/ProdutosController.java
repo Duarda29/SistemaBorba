@@ -50,7 +50,7 @@ public class ProdutosController extends AbstractTableModel {
            return mebProdutos.getMebQuantidade();
         } 
         if (column == 3) {
-           return mebProdutos.getMebComplemento();
+           return mebProdutos.getMebCategoria();
         } 
         return null;     
     
@@ -68,7 +68,7 @@ public class ProdutosController extends AbstractTableModel {
             return "Quantidade";
         }
         if (column == 3) {
-            return "Complemento";
+            return "Categoria";
         }
         return "";
     }

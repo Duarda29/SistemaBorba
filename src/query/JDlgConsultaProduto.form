@@ -54,7 +54,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTx_Meb_tNome" alignment="0" min="-2" pref="279" max="-2" attributes="0"/>
+                      <Component id="jTxt_Meb_Nome" alignment="0" min="-2" pref="279" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -63,7 +63,7 @@
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
-                          <Component id="jTxt_Meb_Cpf" min="-2" pref="279" max="-2" attributes="0"/>
+                          <Component id="jTxt_Meb_Categoria" min="-2" pref="279" max="-2" attributes="0"/>
                           <EmptySpace pref="105" max="32767" attributes="0"/>
                           <Component id="jBtn_Meb_Consultar" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -82,9 +82,9 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jTx_Meb_tNome" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jTxt_Meb_Nome" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jBtn_Meb_Consultar" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTxt_Meb_Cpf" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jTxt_Meb_Categoria" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="34" max="32767" attributes="0"/>
               </Group>
@@ -97,9 +97,9 @@
             <Property name="text" type="java.lang.String" value="Nome"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTx_Meb_tNome">
+        <Component class="javax.swing.JTextField" name="jTxt_Meb_Nome">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTx_Meb_tNomeActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTxt_Meb_NomeActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jBtn_Meb_Consultar">
@@ -112,12 +112,12 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="CPF"/>
+            <Property name="text" type="java.lang.String" value="Categoria - Maior que"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTxt_Meb_Cpf">
+        <Component class="javax.swing.JTextField" name="jTxt_Meb_Categoria">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTxt_Meb_CpfActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTxt_Meb_CategoriaActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
@@ -132,21 +132,15 @@
         <Component class="javax.swing.JTable" name="jTable1">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="5" rowCount="4">
+              <Table columnCount="4" rowCount="4">
                 <Column editable="true" title="Id" type="java.lang.Object"/>
                 <Column editable="true" title="Nome" type="java.lang.Object"/>
-                <Column editable="true" title="Apelido" type="java.lang.Object"/>
-                <Column editable="true" title="Cpf" type="java.lang.Object"/>
-                <Column editable="true" title="Nivel" type="java.lang.Object"/>
+                <Column editable="true" title="Quantidade" type="java.lang.Object"/>
+                <Column editable="true" title="Categoria" type="java.lang.Object"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
               <TableColumnModel selectionModel="0">
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                  <Title/>
-                  <Editor/>
-                  <Renderer/>
-                </Column>
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                   <Title/>
                   <Editor/>

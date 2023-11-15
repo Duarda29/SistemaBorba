@@ -3,6 +3,7 @@ package dao;
 import bean.MebClientes;
 import java.util.List;
 import org.hibernate.Criteria;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 /**
  *
@@ -52,5 +53,36 @@ public class ClientesDAO extends DAO_Abstract {
         session.getTransaction().commit();
         return lista;
     }
+    
+     public List listNome(String mebNome){
+        session.beginTransaction();
+        Criteria crit = session.createCriteria(MebClientes.class);
+        crit.add(Restrictions.like("mebNome", mebNome, MatchMode.ANYWHERE));
+        List lista = crit.list();
+        session.getTransaction().commit();
+        return lista;
+    }
+    
+    public List listEstado(int mebEstado){
+        session.beginTransaction();
+        Criteria crit = session.createCriteria(MebClientes.class);
+        crit.add(Restrictions.ge("mebEstado", mebEstado));
+        List lista = crit.list();
+        session.getTransaction().commit();
+        return lista;
+    }
+    
+      public List listNomeEstado(String mebNome, int mebEstado){
+        session.beginTransaction();
+        Criteria crit = session.createCriteria(MebClientes.class);
+        crit.add(Restrictions.like("mebNome", mebNome, MatchMode.ANYWHERE));
+        crit.add(Restrictions.ge("mebEstado", mebEstado));
+        List lista = crit.list();
+        session.getTransaction().commit();
+        return lista;
+    }
+
+    
+    
     
 }

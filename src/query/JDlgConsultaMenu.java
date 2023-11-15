@@ -5,32 +5,32 @@
  */
 package query;
 
-import dao.UsuariosDAO;
-import dao.UsuariosDAO;
+import dao.MenuDAO;
 import java.util.List;
-import view.UsuariosController;
+import tools.Util;
+import view.MenuController;
 
 /**
  *
  * @author maria
  */
-public class JDlgConsultaUsuarios extends javax.swing.JDialog {
+public class JDlgConsultaMenu extends javax.swing.JDialog {
     
-     UsuariosController usuariosController;
-    UsuariosDAO usuariosDAO;
+      MenuController menuController;
+    MenuDAO menuDAO;
 
     /**
      * Creates new form jDlgConsultaUsuarios
      */
-    public JDlgConsultaUsuarios(java.awt.Frame parent, boolean modal) {
+    public JDlgConsultaMenu(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
-         usuariosController = new UsuariosController();
-         usuariosDAO = new UsuariosDAO();
-         List lista = usuariosDAO.listAll();
-         usuariosController.setList(lista);
-         jTable1.setModel(usuariosController);
+         menuController = new MenuController();
+         menuDAO = new MenuDAO();
+         List lista = menuDAO.listAll();
+         menuController.setList(lista);
+         jTable1.setModel(menuController);
 
     }
 
@@ -45,10 +45,10 @@ public class JDlgConsultaUsuarios extends javax.swing.JDialog {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTx_Meb_tNome = new javax.swing.JTextField();
+        jTxt_Meb_Pizza = new javax.swing.JTextField();
         jBtn_Meb_Consultar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jTxt_Meb_Cpf = new javax.swing.JTextField();
+        jTxt_Meb_Tamanhos = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
@@ -56,11 +56,11 @@ public class JDlgConsultaUsuarios extends javax.swing.JDialog {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel1.setText("Nome");
+        jLabel1.setText("Pizza - Maior que");
 
-        jTx_Meb_tNome.addActionListener(new java.awt.event.ActionListener() {
+        jTxt_Meb_Pizza.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTx_Meb_tNomeActionPerformed(evt);
+                jTxt_Meb_PizzaActionPerformed(evt);
             }
         });
 
@@ -71,11 +71,11 @@ public class JDlgConsultaUsuarios extends javax.swing.JDialog {
             }
         });
 
-        jLabel2.setText("CPF");
+        jLabel2.setText("Tamanhos - Maior que");
 
-        jTxt_Meb_Cpf.addActionListener(new java.awt.event.ActionListener() {
+        jTxt_Meb_Tamanhos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTxt_Meb_CpfActionPerformed(evt);
+                jTxt_Meb_TamanhosActionPerformed(evt);
             }
         });
 
@@ -87,14 +87,14 @@ public class JDlgConsultaUsuarios extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(jTx_Meb_tNome, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTxt_Meb_Pizza, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(39, 39, 39)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jTxt_Meb_Cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTxt_Meb_Tamanhos, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
                         .addComponent(jBtn_Meb_Consultar)))
                 .addContainerGap())
@@ -108,21 +108,21 @@ public class JDlgConsultaUsuarios extends javax.swing.JDialog {
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTx_Meb_tNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTxt_Meb_Pizza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtn_Meb_Consultar)
-                    .addComponent(jTxt_Meb_Cpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTxt_Meb_Tamanhos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(34, Short.MAX_VALUE))
         );
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Id", "Nome", "Apelido", "Cpf", "Nivel"
+                "Id", "Pizza", "Borba", "Tamanhos"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -145,36 +145,36 @@ public class JDlgConsultaUsuarios extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTx_Meb_tNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTx_Meb_tNomeActionPerformed
+    private void jTxt_Meb_PizzaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxt_Meb_PizzaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTx_Meb_tNomeActionPerformed
+    }//GEN-LAST:event_jTxt_Meb_PizzaActionPerformed
 
     private void jBtn_Meb_ConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn_Meb_ConsultarActionPerformed
-        if(jTx_Meb_tNome.getText().equals("") && jTxt_Meb_Cpf.getText().equals("")){
-         List lista = usuariosDAO.listAll();
-         usuariosController.setList(lista);
+        if(jTxt_Meb_Pizza.getText().equals("") && jTxt_Meb_Tamanhos.getText().equals("")){
+         List lista = menuDAO.listAll();
+         menuController.setList(lista);
         } else{
-            if(!jTx_Meb_tNome.getText().equals("") && !jTxt_Meb_Cpf.getText().equals("")){
-             List lista = usuariosDAO.listNomeCpf(jTx_Meb_tNome.getText(), jTxt_Meb_Cpf.getText());
-              usuariosController.setList(lista);
+            if(!jTxt_Meb_Pizza.getText().equals("") && !jTxt_Meb_Tamanhos.getText().equals("")){
+             List lista = menuDAO.listPizzaTamanhos( Util.strInt(jTxt_Meb_Pizza.getText()), Util.strInt(jTxt_Meb_Tamanhos.getText()));
+              menuController.setList(lista);
           }else{
-            if(! jTx_Meb_tNome.getText().equals("")){
-             List lista = usuariosDAO.listNome(jTx_Meb_tNome.getText());//estudar pra explicar para o Marcos
-              usuariosController.setList(lista);
+            if(! jTxt_Meb_Pizza.getText().equals("")){
+             List lista = menuDAO.listPizza(Util.strInt(jTxt_Meb_Pizza.getText()));//estudar pra explicar para o Marcos
+              menuController.setList(lista);
           }else{
-             if(! jTxt_Meb_Cpf.getText().equals("")) {
-              List lista = usuariosDAO.listCpf(jTxt_Meb_Cpf.getText());
-               usuariosController.setList(lista);
+             if(! jTxt_Meb_Tamanhos.getText().equals("")) {
+              List lista = menuDAO.listTamanhos(Util.strInt(jTxt_Meb_Tamanhos.getText()));
+               menuController.setList(lista);
              }
            }
-         }
+         } 
        }
         
     }//GEN-LAST:event_jBtn_Meb_ConsultarActionPerformed
 
-    private void jTxt_Meb_CpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxt_Meb_CpfActionPerformed
+    private void jTxt_Meb_TamanhosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxt_Meb_TamanhosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTxt_Meb_CpfActionPerformed
+    }//GEN-LAST:event_jTxt_Meb_TamanhosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -193,21 +193,35 @@ public class JDlgConsultaUsuarios extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JDlgConsultaUsuarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDlgConsultaMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JDlgConsultaUsuarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDlgConsultaMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JDlgConsultaUsuarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDlgConsultaMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JDlgConsultaUsuarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDlgConsultaMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                JDlgConsultaUsuarios dialog = new JDlgConsultaUsuarios(new javax.swing.JFrame(), true);
+                JDlgConsultaMenu dialog = new JDlgConsultaMenu(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -226,7 +240,7 @@ public class JDlgConsultaUsuarios extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTx_Meb_tNome;
-    private javax.swing.JTextField jTxt_Meb_Cpf;
+    private javax.swing.JTextField jTxt_Meb_Pizza;
+    private javax.swing.JTextField jTxt_Meb_Tamanhos;
     // End of variables declaration//GEN-END:variables
 }

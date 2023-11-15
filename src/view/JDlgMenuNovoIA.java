@@ -68,8 +68,8 @@ JDlgMenuNovo jDlgMenuNovo;
         jTxt_Meb_Porcao = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jBtnIncluir = new javax.swing.JButton();
-        jBtnAlterar = new javax.swing.JButton();
+        jBtn_Meb_Incluir = new javax.swing.JButton();
+        jBtn_Meb_Alterar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -101,25 +101,25 @@ JDlgMenuNovo jDlgMenuNovo;
         jPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jPanel1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
 
-        jBtnIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-divisa-circulada-acima-24.png"))); // NOI18N
-        jBtnIncluir.setText("Incluir");
-        jBtnIncluir.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jBtnIncluir.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        jBtnIncluir.addActionListener(new java.awt.event.ActionListener() {
+        jBtn_Meb_Incluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-divisa-circulada-acima-24.png"))); // NOI18N
+        jBtn_Meb_Incluir.setText("Incluir");
+        jBtn_Meb_Incluir.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jBtn_Meb_Incluir.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        jBtn_Meb_Incluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnIncluirActionPerformed(evt);
+                jBtn_Meb_IncluirActionPerformed(evt);
             }
         });
-        jPanel1.add(jBtnIncluir);
+        jPanel1.add(jBtn_Meb_Incluir);
 
-        jBtnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-alterar-25.png"))); // NOI18N
-        jBtnAlterar.setText("Alterar");
-        jBtnAlterar.addActionListener(new java.awt.event.ActionListener() {
+        jBtn_Meb_Alterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-alterar-25.png"))); // NOI18N
+        jBtn_Meb_Alterar.setText("Alterar");
+        jBtn_Meb_Alterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnAlterarActionPerformed(evt);
+                jBtn_Meb_AlterarActionPerformed(evt);
             }
         });
-        jPanel1.add(jBtnAlterar);
+        jPanel1.add(jBtn_Meb_Alterar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -188,19 +188,19 @@ JDlgMenuNovo jDlgMenuNovo;
         // TODO add your handling code here:
     }//GEN-LAST:event_jTxt_Meb_CodigoActionPerformed
 
-    private void jBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirActionPerformed
+    private void jBtn_Meb_IncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn_Meb_IncluirActionPerformed
      
         MebMenu mebMenu = viewBean();
         MenuDAO menuDAO = new MenuDAO();
         menuDAO.insert(mebMenu);
         setVisible(false);
 
-    }//GEN-LAST:event_jBtnIncluirActionPerformed
+    }//GEN-LAST:event_jBtn_Meb_IncluirActionPerformed
 
-    private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
+    private void jBtn_Meb_AlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn_Meb_AlterarActionPerformed
         setVisible(false);
 
-    }//GEN-LAST:event_jBtnAlterarActionPerformed
+    }//GEN-LAST:event_jBtn_Meb_AlterarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -245,8 +245,8 @@ JDlgMenuNovo jDlgMenuNovo;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBtnAlterar;
-    private javax.swing.JButton jBtnIncluir;
+    private javax.swing.JButton jBtn_Meb_Alterar;
+    private javax.swing.JButton jBtn_Meb_Incluir;
     private javax.swing.JComboBox<String> jCbo_Meb_Bebidas;
     private javax.swing.JComboBox<String> jCbo_Meb_Pizza;
     private javax.swing.JComboBox<String> jCbo_Meb_tamanhos;

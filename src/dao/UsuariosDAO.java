@@ -72,7 +72,7 @@ public class UsuariosDAO extends DAO_Abstract{
         return lista;
     }
     
-    
+   
     public List listNomeCpf(String mebNome, String mebCpf){
         session.beginTransaction();
         Criteria crit = session.createCriteria(MebUsuarios.class);
