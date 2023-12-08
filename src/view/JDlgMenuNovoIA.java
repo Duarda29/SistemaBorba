@@ -69,7 +69,7 @@ JDlgMenuNovo jDlgMenuNovo;
         jLabel6 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jBtn_Meb_Incluir = new javax.swing.JButton();
-        jBtn_Meb_Alterar = new javax.swing.JButton();
+        jBtn_Meb_Cancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -81,7 +81,12 @@ JDlgMenuNovo jDlgMenuNovo;
             }
         });
 
-        jCbo_Meb_Pizza.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Calabresa", "Frango c/ Catupity", "Napolitano", "Abacaxi", "Portuguesa", "4 Queijos", "Moda da casa" }));
+        jCbo_Meb_Pizza.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Calabresa", "Frango c/ Catupity", "Napolitano", "Abacaxi", "Portuguesa", "4 Queijos", "Moda da casa", " Brigadeiro" }));
+        jCbo_Meb_Pizza.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCbo_Meb_PizzaActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Pizza");
 
@@ -112,14 +117,14 @@ JDlgMenuNovo jDlgMenuNovo;
         });
         jPanel1.add(jBtn_Meb_Incluir);
 
-        jBtn_Meb_Alterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-alterar-25.png"))); // NOI18N
-        jBtn_Meb_Alterar.setText("Alterar");
-        jBtn_Meb_Alterar.addActionListener(new java.awt.event.ActionListener() {
+        jBtn_Meb_Cancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-alterar-25.png"))); // NOI18N
+        jBtn_Meb_Cancelar.setText("Cancelar");
+        jBtn_Meb_Cancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtn_Meb_AlterarActionPerformed(evt);
+                jBtn_Meb_CancelarActionPerformed(evt);
             }
         });
-        jPanel1.add(jBtn_Meb_Alterar);
+        jPanel1.add(jBtn_Meb_Cancelar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -190,17 +195,29 @@ JDlgMenuNovo jDlgMenuNovo;
 
     private void jBtn_Meb_IncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn_Meb_IncluirActionPerformed
      
-        MebMenu mebMenu = viewBean();
-        MenuDAO menuDAO = new MenuDAO();
-        menuDAO.insert(mebMenu);
+      MebMenu mebMenu = viewBean();
+      MenuDAO menuDAO = new MenuDAO();
+      if(getTitle().toUpperCase().substring(0 ,1).equals("I")){
+          menuDAO.insert(mebMenu);
+      }else{
+          menuDAO.update(mebMenu);
+      }
         setVisible(false);
+              
+            Util.limparCampos(jTxt_Meb_Codigo, jCbo_Meb_Pizza,jCbo_Meb_Bebidas, jCbo_Meb_tamanhos, jTxt_Meb_Bordas,jTxt_Meb_Porcao);
 
     }//GEN-LAST:event_jBtn_Meb_IncluirActionPerformed
 
-    private void jBtn_Meb_AlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn_Meb_AlterarActionPerformed
-        setVisible(false);
+    private void jBtn_Meb_CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn_Meb_CancelarActionPerformed
 
-    }//GEN-LAST:event_jBtn_Meb_AlterarActionPerformed
+    Util.limparCampos(jTxt_Meb_Codigo, jCbo_Meb_Pizza,jCbo_Meb_Bebidas, jCbo_Meb_tamanhos, jTxt_Meb_Bordas,jTxt_Meb_Porcao);
+    Util.mensagem("Operação cancelada");
+
+    }//GEN-LAST:event_jBtn_Meb_CancelarActionPerformed
+
+    private void jCbo_Meb_PizzaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCbo_Meb_PizzaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCbo_Meb_PizzaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -245,7 +262,7 @@ JDlgMenuNovo jDlgMenuNovo;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBtn_Meb_Alterar;
+    private javax.swing.JButton jBtn_Meb_Cancelar;
     private javax.swing.JButton jBtn_Meb_Incluir;
     private javax.swing.JComboBox<String> jCbo_Meb_Bebidas;
     private javax.swing.JComboBox<String> jCbo_Meb_Pizza;
@@ -261,4 +278,8 @@ JDlgMenuNovo jDlgMenuNovo;
     private javax.swing.JTextField jTxt_Meb_Codigo;
     private javax.swing.JTextField jTxt_Meb_Porcao;
     // End of variables declaration//GEN-END:variables
+
+    void setMebMenu(MebMenu mebMenu) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

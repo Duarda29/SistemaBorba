@@ -26,6 +26,7 @@ public class JDlgConsultaUsuarios extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
+        setTitle("Consulta de Usuários");
          usuariosController = new UsuariosController();
          usuariosDAO = new UsuariosDAO();
          List lista = usuariosDAO.listAll();
@@ -45,7 +46,7 @@ public class JDlgConsultaUsuarios extends javax.swing.JDialog {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTx_Meb_tNome = new javax.swing.JTextField();
+        jTxt_Meb_Nome = new javax.swing.JTextField();
         jBtn_Meb_Consultar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jTxt_Meb_Cpf = new javax.swing.JTextField();
@@ -58,9 +59,9 @@ public class JDlgConsultaUsuarios extends javax.swing.JDialog {
 
         jLabel1.setText("Nome");
 
-        jTx_Meb_tNome.addActionListener(new java.awt.event.ActionListener() {
+        jTxt_Meb_Nome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTx_Meb_tNomeActionPerformed(evt);
+                jTxt_Meb_NomeActionPerformed(evt);
             }
         });
 
@@ -87,7 +88,7 @@ public class JDlgConsultaUsuarios extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(jTx_Meb_tNome, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTxt_Meb_Nome, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(39, 39, 39)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -108,7 +109,7 @@ public class JDlgConsultaUsuarios extends javax.swing.JDialog {
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTx_Meb_tNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTxt_Meb_Nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtn_Meb_Consultar)
                     .addComponent(jTxt_Meb_Cpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(34, Short.MAX_VALUE))
@@ -116,13 +117,13 @@ public class JDlgConsultaUsuarios extends javax.swing.JDialog {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Id", "Nome", "Apelido", "Cpf", "Nivel"
+                "Id", "Nome", "Apelido", "Cpf"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -145,21 +146,21 @@ public class JDlgConsultaUsuarios extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTx_Meb_tNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTx_Meb_tNomeActionPerformed
+    private void jTxt_Meb_NomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxt_Meb_NomeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTx_Meb_tNomeActionPerformed
+    }//GEN-LAST:event_jTxt_Meb_NomeActionPerformed
 
     private void jBtn_Meb_ConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn_Meb_ConsultarActionPerformed
-        if(jTx_Meb_tNome.getText().equals("") && jTxt_Meb_Cpf.getText().equals("")){
+        if(jTxt_Meb_Nome.getText().equals("") && jTxt_Meb_Cpf.getText().equals("")){
          List lista = usuariosDAO.listAll();
          usuariosController.setList(lista);
         } else{
-            if(!jTx_Meb_tNome.getText().equals("") && !jTxt_Meb_Cpf.getText().equals("")){
-             List lista = usuariosDAO.listNomeCpf(jTx_Meb_tNome.getText(), jTxt_Meb_Cpf.getText());
+            if(!jTxt_Meb_Nome.getText().equals("") && !jTxt_Meb_Cpf.getText().equals("")){
+             List lista = usuariosDAO.listNomeCpf(jTxt_Meb_Nome.getText(), jTxt_Meb_Cpf.getText());
               usuariosController.setList(lista);
           }else{
-            if(! jTx_Meb_tNome.getText().equals("")){
-             List lista = usuariosDAO.listNome(jTx_Meb_tNome.getText());//estudar pra explicar para o Marcos
+            if(! jTxt_Meb_Nome.getText().equals("")){
+             List lista = usuariosDAO.listNome(jTxt_Meb_Nome.getText());//estudar pra explicar para o Marcos
               usuariosController.setList(lista);
           }else{
              if(! jTxt_Meb_Cpf.getText().equals("")) {
@@ -226,7 +227,7 @@ public class JDlgConsultaUsuarios extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTx_Meb_tNome;
     private javax.swing.JTextField jTxt_Meb_Cpf;
+    private javax.swing.JTextField jTxt_Meb_Nome;
     // End of variables declaration//GEN-END:variables
 }

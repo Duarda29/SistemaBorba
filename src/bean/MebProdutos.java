@@ -1,5 +1,5 @@
 package bean;
-// Generated 25/09/2023 11:58:18 by Hibernate Tools 4.3.1
+// Generated 04/12/2023 10:00:31 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -27,20 +27,22 @@ public class MebProdutos  implements java.io.Serializable {
      private int mebCategoria;
      private String mebComplemento;
      private String mebEntrega;
+     private double mebValorUnitario;
 
     public MebProdutos() {
     }
 
 	
-    public MebProdutos(int idMebProdutos, String mebQuantidade, String mebNomeProduto, int mebCategoria, String mebComplemento, String mebEntrega) {
+    public MebProdutos(int idMebProdutos, String mebQuantidade, String mebNomeProduto, int mebCategoria, String mebComplemento, String mebEntrega, double mebValorUnitario) {
         this.idMebProdutos = idMebProdutos;
         this.mebQuantidade = mebQuantidade;
         this.mebNomeProduto = mebNomeProduto;
         this.mebCategoria = mebCategoria;
         this.mebComplemento = mebComplemento;
         this.mebEntrega = mebEntrega;
+        this.mebValorUnitario = mebValorUnitario;
     }
-   
+  
    
      @Id 
 
@@ -104,6 +106,31 @@ public class MebProdutos  implements java.io.Serializable {
         this.mebEntrega = mebEntrega;
     }
 
+    
+    @Column(name="meb_valorUnitario", nullable=false, length=45)
+    public double getMebValorUnitario() {
+        return this.mebValorUnitario;
+    }
+    
+    public void setMebValorUnitario(double mebValorUnitario) {
+        this.mebValorUnitario = mebValorUnitario;
+    }
+
+     @Override
+ public String toString(){
+    return this.getMebNomeProduto();
+ }
+
+     @Override
+ public boolean equals (Object object){
+    if(object instanceof MebProdutos){
+        MebProdutos mebProdutos = (MebProdutos) object;
+    if(this.getIdMebProdutos()== mebProdutos.getIdMebProdutos()){
+    return true;
+    } 
+    }
+    return false;
+}
 
 }
 

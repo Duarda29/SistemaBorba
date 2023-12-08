@@ -26,6 +26,7 @@ public class JDlgConsultaProduto extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
+        setTitle("Consulta de Produtos");
          produtosController = new ProdutosController();
          produtosDAO = new ProdutosDAO();
          List lista = produtosDAO.listAll();
@@ -48,7 +49,7 @@ public class JDlgConsultaProduto extends javax.swing.JDialog {
         jTxt_Meb_Nome = new javax.swing.JTextField();
         jBtn_Meb_Consultar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jTxt_Meb_Categoria = new javax.swing.JTextField();
+        jCbo_Meb_Categoria = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
@@ -73,11 +74,7 @@ public class JDlgConsultaProduto extends javax.swing.JDialog {
 
         jLabel2.setText("Categoria - Maior que");
 
-        jTxt_Meb_Categoria.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTxt_Meb_CategoriaActionPerformed(evt);
-            }
-        });
+        jCbo_Meb_Categoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pizzas - 0", "Bebidas - 1", "Pizza e Bebida - 2" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -92,10 +89,10 @@ public class JDlgConsultaProduto extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 346, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jTxt_Meb_Categoria, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
+                        .addComponent(jCbo_Meb_Categoria, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jBtn_Meb_Consultar)))
                 .addContainerGap())
         );
@@ -110,7 +107,7 @@ public class JDlgConsultaProduto extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTxt_Meb_Nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtn_Meb_Consultar)
-                    .addComponent(jTxt_Meb_Categoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jCbo_Meb_Categoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(34, Short.MAX_VALUE))
         );
 
@@ -150,31 +147,37 @@ public class JDlgConsultaProduto extends javax.swing.JDialog {
     }//GEN-LAST:event_jTxt_Meb_NomeActionPerformed
 
     private void jBtn_Meb_ConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn_Meb_ConsultarActionPerformed
-        if(jTxt_Meb_Nome.getText().equals("") && jTxt_Meb_Categoria.getText().equals("")){
+       
+        if (jTxt_Meb_Nome.getText().isEmpty() && jCbo_Meb_Categoria.getSelectedItem() == null) {
+        produtosController = new ProdutosController();
          List lista = produtosDAO.listAll();
-         produtosController.setList(lista);
-        } else{
-            if(!jTxt_Meb_Nome.getText().equals("") && !jTxt_Meb_Categoria.getText().equals("")){
-             List lista = produtosDAO.listNomePais(jTxt_Meb_Nome.getText(), Util.strInt(jTxt_Meb_Categoria.getText()));
-              produtosController.setList(lista);
-          }else{
-            if(! jTxt_Meb_Nome.getText().equals("")){
-             List lista = produtosDAO.listNome(jTxt_Meb_Nome.getText());//estudar pra explicar para o Marcos
-              produtosController.setList(lista);
-          }else{
-             if(! jTxt_Meb_Categoria.getText().equals("")) {
-              List lista = produtosDAO.listPais(Util.strInt(jTxt_Meb_Categoria.getText()));
-               produtosController.setList(lista);
-             }
-           }
-         } 
-       }
-        
+        produtosController.setList(lista);
+        jTable1.setModel(produtosController);
+    } else{
+            if (!jTxt_Meb_Nome.getText().isEmpty() && jCbo_Meb_Categoria.getSelectedItem() != null){
+        List lista = produtosDAO.listNomePais(jTxt_Meb_Nome.getText(), jCbo_Meb_Categoria.getSelectedIndex());
+        produtosController = new ProdutosController();
+        produtosController.setList(lista);
+        jTable1.setModel(produtosController);
+    
+    } else 
+            {if (!jTxt_Meb_Nome.getText().isEmpty()) {
+        List lista = produtosDAO.listNome(jTxt_Meb_Nome.getText());
+        produtosController = new ProdutosController();
+        produtosController.setList(lista);
+        jTable1.setModel(produtosController);
+    } 
+    if (jCbo_Meb_Categoria.getSelectedItem() != null) {
+        List lista = produtosDAO.listPais(jCbo_Meb_Categoria.getSelectedIndex());
+        produtosController = new ProdutosController();
+        produtosController.setList(lista);
+        jTable1.setModel(produtosController);
+    
+    }
+        }   
+    }
+      
     }//GEN-LAST:event_jBtn_Meb_ConsultarActionPerformed
-
-    private void jTxt_Meb_CategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxt_Meb_CategoriaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTxt_Meb_CategoriaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -235,12 +238,12 @@ public class JDlgConsultaProduto extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtn_Meb_Consultar;
+    private javax.swing.JComboBox<String> jCbo_Meb_Categoria;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTxt_Meb_Categoria;
     private javax.swing.JTextField jTxt_Meb_Nome;
     // End of variables declaration//GEN-END:variables
 }

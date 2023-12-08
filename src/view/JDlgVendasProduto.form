@@ -34,16 +34,21 @@
                       <Component id="jBtn_Meb_Cancelar" min="-2" pref="136" max="-2" attributes="0"/>
                   </Group>
                   <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="jCboProduto" min="-2" pref="337" max="-2" attributes="0"/>
-                      <Group type="102" alignment="1" attributes="0">
+                      <Component id="jCbo_Meb_Produto" min="-2" pref="337" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jTxtQuantidade" alignment="0" min="-2" pref="99" max="-2" attributes="0"/>
+                              <Component id="jTxt_Meb_Quantidade" alignment="0" min="-2" pref="99" max="-2" attributes="0"/>
                               <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jTxt_Meb_ValorUnitario" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
+                              <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTxtValor" min="-2" pref="100" max="-2" attributes="0"/>
+                              <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                              <Component id="jTxt_Meb_Total" min="-2" pref="100" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -58,16 +63,18 @@
               <EmptySpace min="32" pref="32" max="-2" attributes="0"/>
               <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="13" pref="13" max="-2" attributes="0"/>
-              <Component id="jCboProduto" min="-2" max="-2" attributes="0"/>
+              <Component id="jCbo_Meb_Produto" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="29" pref="29" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="7" pref="7" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jTxtQuantidade" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jTxtValor" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jTxt_Meb_Quantidade" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jTxt_Meb_ValorUnitario" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jTxt_Meb_Total" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -95,25 +102,31 @@
         <Property name="text" type="java.lang.String" value="Quantidade"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="jCboProduto">
+    <Component class="javax.swing.JComboBox" name="jCbo_Meb_Produto">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="0"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="jCbo_Meb_ProdutoItemStateChanged"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCbo_Meb_ProdutoActionPerformed"/>
+      </Events>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JComboBox&lt;MebVendasProduto&gt;()"/>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;MebVendasProduto&gt;"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JComboBox&lt;MebProdutos&gt;()"/>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;MebProdutos&gt;"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTxtQuantidade">
+    <Component class="javax.swing.JTextField" name="jTxt_Meb_Quantidade">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTxtQuantidadeActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTxt_Meb_QuantidadeActionPerformed"/>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTxt_Meb_QuantidadeKeyReleased"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTxtValor">
+    <Component class="javax.swing.JTextField" name="jTxt_Meb_ValorUnitario">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTxtValorActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTxt_Meb_ValorUnitarioActionPerformed"/>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTxt_Meb_ValorUnitarioKeyReleased"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jBtn_Meb_Confirmar">
@@ -137,6 +150,16 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtn_Meb_CancelarActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JTextField" name="jTxt_Meb_Total">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTxt_Meb_TotalActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel7">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Total"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

@@ -119,13 +119,24 @@ JDlgMenuNovoIA jDlgMenuNovoIA;//declarou a variavel para tudo, global
 
     private void jBtn_Meb_IncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn_Meb_IncluirActionPerformed
         // TODO add your handling code here:
+        
         jDlgMenuNovoIA.setTitle("Inclusão");
         jDlgMenuNovoIA.setVisible(true);
+         //atualizar a lista no jtable
+            List lista = menuDAO.listAll();
+            menuController.setList(lista);
+        
     }//GEN-LAST:event_jBtn_Meb_IncluirActionPerformed
 
     private void jBtn_Meb_AlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn_Meb_AlterarActionPerformed
-        jDlgMenuNovoIA.setTitle("Alteração");
+      jDlgMenuNovoIA.setTitle("Alterar");
         jDlgMenuNovoIA.setVisible(true);
+        
+        int sel = jTable1.getSelectedRow();
+     MebMenu mebMenu = menuController.getBean(sel);
+     jDlgMenuNovoIA.beanView(mebMenu);
+     //atualizar a lista no jtable
+          List lista = menuDAO.listAll();
     }//GEN-LAST:event_jBtn_Meb_AlterarActionPerformed
 
     private void jBtn_Meb_ExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn_Meb_ExcluirActionPerformed

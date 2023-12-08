@@ -71,7 +71,7 @@ public class Util {
     }
     
     public static double strDouble (String cad) {
-        return Integer.valueOf(cad);
+     return Double.valueOf(cad);
     }
     
     public static String doubleStr (double num) {

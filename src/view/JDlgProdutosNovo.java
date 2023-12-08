@@ -18,7 +18,10 @@ public class JDlgProdutosNovo extends javax.swing.JDialog {
 ProdutosDAO produtosDAO;    
 MebProdutos mebProdutos;
 ProdutosController produtosController;
-JDlgProdutosNovoIA jDlgProdutosNovoIA;//declarou a variavel para tudo, global
+JDlgProdutosNovoIA jDlgProdutosNovoIA;//declarou a variavel para tudo, global    
+
+private boolean incluindo;
+
 
     public JDlgProdutosNovo(java.awt.Frame parent, boolean modal) {
       super(parent, modal);
@@ -59,7 +62,7 @@ JDlgProdutosNovoIA jDlgProdutosNovoIA;//declarou a variavel para tudo, global
                 {null, null, null, null}
             },
             new String [] {
-                "Código", "Nome", "Quantidade", "Descrição"
+                "Valor", "Nome", "Quantidade", "Categoria"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -115,12 +118,25 @@ JDlgProdutosNovoIA jDlgProdutosNovoIA;//declarou a variavel para tudo, global
         // TODO add your handling code here:
         jDlgProdutosNovoIA.setTitle("Inclusão");
         jDlgProdutosNovoIA.setVisible(true);
+        //atualizar a lista no jtable
+        
+          List lista = produtosDAO.listAll();
+          produtosController.setList(lista);
+          
     }//GEN-LAST:event_jBtn_Meb_IncluirActionPerformed
 
     private void jBtn_Meb_AlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn_Meb_AlterarActionPerformed
-        jDlgProdutosNovoIA.setTitle("Alteração");
-        jDlgProdutosNovoIA.setVisible(true);
-
+     jDlgProdutosNovoIA.setTitle("Alterar");
+     jDlgProdutosNovoIA.setVisible(true);
+     
+     int sel = jTable1.getSelectedRow();
+     MebProdutos mebProdutos = produtosController.getBean(sel);
+     jDlgProdutosNovoIA.beanView(mebProdutos);
+     
+     //atualizar a lista no jtable
+          List lista = produtosDAO.listAll();
+          produtosController.setList(lista);
+        
     }//GEN-LAST:event_jBtn_Meb_AlterarActionPerformed
 
     private void jBtn_Meb_ExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn_Meb_ExcluirActionPerformed
@@ -135,6 +151,9 @@ JDlgProdutosNovoIA jDlgProdutosNovoIA;//declarou a variavel para tudo, global
         }else{
           Util.mensagem("Exclusao cancelada");
         }
+        //atualizar a lista no jtable
+          List lista = produtosDAO.listAll();
+          produtosController.setList(lista);
     }//GEN-LAST:event_jBtn_Meb_ExcluirActionPerformed
 
     /**

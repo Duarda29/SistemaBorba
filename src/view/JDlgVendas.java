@@ -6,30 +6,21 @@
 package view;
 
 import bean.MebClientes;
-import bean.MebProdutos;
 import bean.MebVendas;
 import bean.MebVendasProduto;
 import bean.MebUsuarios;
 import dao.ClientesDAO;
-import dao.ProdutosDAO;
 import dao.UsuariosDAO;
 import dao.VendasDAO;
 import dao.VendasProdutoDAO;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
 import tools.Util;
-import view.JDlgUsuarios;
-import view.JDlgVendasPesquisa;
-import view.JDlgVendasProduto;
-import view.ProdutosController;
-import view.VendasProdutoController;
 
 /**
  *
@@ -41,13 +32,12 @@ public class JDlgVendas extends javax.swing.JDialog {
      private boolean incluindo;
      
      
-    public VendasDAO vendasDAO;
-    public MebVendas mebVendas;
-    public JDlgVendasProduto jDlgVendasProduto;
-    public ProdutosDAO produtosDAO;
-    public MebProdutos mebProdutos;
-    public ProdutosController produtosController;
-    private VendasProdutoController vendasProdutoController = new VendasProdutoController(); //deixou como global
+   public VendasDAO vendasDAO;
+   MebVendas mebVendas;
+   VendasProdutoController vendasProdutoController;
+   public JDlgVendasProduto jDlgVendasProduto;
+   MebVendasProduto mebVendasProduto;
+   
 
     /**
      * Creates new form JDlgPedidos
@@ -55,71 +45,76 @@ public class JDlgVendas extends javax.swing.JDialog {
     public JDlgVendas(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        
           setTitle("Vendas");
         setLocationRelativeTo(null);
 
        vendasDAO = new VendasDAO();
-
-        Util.habilitar(false, jTxtNumPedidos, jFmtData, jTxtTotal, jCboClientes, jCboVendedor, jBtn_Meb_Cancelar, jBtn_Meb_Confirmar);
-        Util.habilitar(true, jBtn_Meb_Incluir, jBtn_Meb_Alterar, jBtn_Meb_Excluir, jBtn_Meb_Pesquisar);
+        List lista = new ArrayList();
         
-        
-        JDlgVendasProduto jDlgVendasProduto= new JDlgVendasProduto(null, true);
-        produtosDAO = new ProdutosDAO();
-        List lista = produtosDAO.listAll();
-        produtosController = new ProdutosController();
-        produtosController.setList(lista);
-        jTable1.setModel(produtosController);
         
         ClientesDAO clientesDAO = new ClientesDAO();
         List listaCli = clientesDAO.listAll();
         for (int i = 0; i < listaCli.size(); i++) {
-        //    clientesDAO.addItem((MebClientes) listaCli.get(i));
-        }
-
-        UsuariosDAO usuariosDAO = new UsuariosDAO();
-        List listaFu = usuariosDAO.listAll();
-        for (int i = 0; i < listaFu.size(); i++) {
-          //  usuariosDAO.addItem((MebUsuarios) listaFu.get(i));
+            jCbo_Meb_Clientes.addItem((MebClientes) listaCli.get(i));
         }
         
+        UsuariosDAO usuariosDAO = new UsuariosDAO();
+        List listaVend = usuariosDAO.listAll();
+        for (int i = 0; i < listaVend.size(); i++) {
+            jCbo_Meb_Vendedor.addItem((MebUsuarios) listaVend.get(i));
+        }
+        
+        
+        
+        
+        vendasProdutoController = new VendasProdutoController();
+        jTable1.setModel(vendasProdutoController);
        
+        Util.habilitar(false, jTxt_Meb_NumVendas, jFmt_Meb_Data, jTxt_Meb_Total, jCbo_Meb_Clientes, jCbo_Meb_Vendedor, jBtn_Meb_Cancelar, jBtn_Meb_Confirmar);
+        Util.habilitar(true, jBtn_Meb_Incluir, jBtn_Meb_Alterar, jBtn_Meb_Excluir, jBtn_Meb_Pesquisar);
+        
 
         try {
             mascaraData = new MaskFormatter("##/##/####");
         } catch (ParseException ex) {
-            Logger.getLogger(JDlgUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JDlgVendas.class.getName()).log(Level.SEVERE, null, ex);
         }
-        jFmtData.setFormatterFactory(new DefaultFormatterFactory(mascaraData));
+        jFmt_Meb_Data.setFormatterFactory(new DefaultFormatterFactory(mascaraData));
     }
     
-    public MebVendas beanView(MebVendas mebVendas){
-        jTxtNumPedidos.setText(String.valueOf(mebVendas.getIdMebVendas()));
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-        jFmtData.setText(formato.format(mebVendas.getMebData()));
-         MebClientes idClientes = mebVendas.getMebClientes();
-        ClientesDAO clientesDAO = new ClientesDAO();
-        jCboClientes.setSelectedItem(mebVendas.getMebClientes());
-        jCboVendedor.setSelectedItem(mebVendas.getMebUsuarios());
-        jTxtTotal.setText(String.valueOf(mebVendas.getMebTotal()));
-       
-       
-               return mebVendas;
-    }
     
-    public MebVendas viewBean() {
+    
+     public MebVendas viewBean() {
         MebVendas mebVendas = new MebVendas();
-        mebVendas.setIdMebVendas(Util.strInt(jTxtNumPedidos.getText()));
-        mebVendas.setMebData(Util.strDate(jFmtData.getText()));
-        mebVendas.setMebClientes((MebClientes) jCboClientes.getSelectedItem());
-        mebVendas.setMebUsuarios((MebUsuarios)jCboVendedor.getSelectedItem());
-        mebVendas.setMebTotal(Util.strDouble(jTxtTotal.getText()));
+        mebVendas.setIdMebVendas(Util.strInt(jTxt_Meb_NumVendas.getText()));
+        mebVendas.setMebData(Util.strDate(jFmt_Meb_Data.getText()));
+        mebVendas.setMebClientes((MebClientes) jCbo_Meb_Clientes.getSelectedItem());
+        mebVendas.setMebUsuarios((MebUsuarios)jCbo_Meb_Vendedor.getSelectedItem());
+        mebVendas.setMebTotal(Util.strDouble(jTxt_Meb_Total.getText()));
         
              return mebVendas;
   
     }
    
+    
+    public void beanView(MebVendas mebVendas){
+        jTxt_Meb_NumVendas.setText(String.valueOf(mebVendas.getIdMebVendas()));
+        jFmt_Meb_Data.setText(Util.dateStr(mebVendas.getMebData()));
+        jCbo_Meb_Clientes.setSelectedItem(mebVendas.getMebClientes());
+        jCbo_Meb_Vendedor.setSelectedItem(mebVendas.getMebUsuarios());
+        jTxt_Meb_Total.setText(Util.doubleStr(mebVendas.getMebTotal()));
+       
+        VendasProdutoDAO vendasProdutoDAO = new VendasProdutoDAO();
+        List listaProd = (List) vendasProdutoDAO.listProdutos(mebVendas);
+
+        vendasProdutoController.setList(listaProd);
+        
+             }
+    
+    
+    public int getSelectedRowProd() {
+        return jTable1.getSelectedRow();
+    }
 
    
     @SuppressWarnings("unchecked")
@@ -127,15 +122,14 @@ public class JDlgVendas extends javax.swing.JDialog {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jTxtNumPedidos = new javax.swing.JTextField();
+        jTxt_Meb_NumVendas = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jCboClientes = new javax.swing.JComboBox<MebClientes>();
+        jCbo_Meb_Clientes = new javax.swing.JComboBox<MebClientes>();
         jLabel4 = new javax.swing.JLabel();
-        jCboVendedor = new javax.swing.JComboBox<MebUsuarios
-        >();
+        jCbo_Meb_Vendedor = new javax.swing.JComboBox<MebUsuarios>();
         jLabel5 = new javax.swing.JLabel();
-        jTxtTotal = new javax.swing.JTextField();
+        jTxt_Meb_Total = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
@@ -148,21 +142,21 @@ public class JDlgVendas extends javax.swing.JDialog {
         jBtnIncluirProd = new javax.swing.JButton();
         jBtnAlterarProd = new javax.swing.JButton();
         jBtnExcluirProd = new javax.swing.JButton();
-        jFmtData = new javax.swing.JFormattedTextField();
+        jFmt_Meb_Data = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setText("Num. Pedido");
+        jLabel1.setText("Num. Vendas");
 
         jLabel2.setText("Data");
 
         jLabel3.setText("Clientes");
 
-        jLabel4.setText("Usuarios");
+        jLabel4.setText("Vendedor");
 
-        jCboVendedor.addActionListener(new java.awt.event.ActionListener() {
+        jCbo_Meb_Vendedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCboVendedorActionPerformed(evt);
+                jCbo_Meb_VendedorActionPerformed(evt);
             }
         });
 
@@ -176,7 +170,7 @@ public class JDlgVendas extends javax.swing.JDialog {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Id", "Produto", "Quantidade", "Valor Unitário"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -268,23 +262,23 @@ public class JDlgVendas extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTxtNumPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTxt_Meb_NumVendas, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addComponent(jFmtData, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jFmt_Meb_Data, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(13, 13, 13)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCboClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jCbo_Meb_Clientes, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jCboVendedor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jCbo_Meb_Vendedor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTxtTotal)
+                            .addComponent(jTxt_Meb_Total)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addGap(0, 0, Short.MAX_VALUE))))
@@ -309,11 +303,11 @@ public class JDlgVendas extends javax.swing.JDialog {
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTxtNumPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCboClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCboVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTxtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFmtData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTxt_Meb_NumVendas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCbo_Meb_Clientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCbo_Meb_Vendedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTxt_Meb_Total, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jFmt_Meb_Data, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(27, 27, 27)
@@ -336,28 +330,32 @@ public class JDlgVendas extends javax.swing.JDialog {
     private void jBtn_Meb_IncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn_Meb_IncluirActionPerformed
         // TODO add your handling code here:
         
-        Util.habilitar(true, jTxtNumPedidos, jFmtData, jTxtTotal, jCboClientes, jCboVendedor, jBtn_Meb_Cancelar, jBtn_Meb_Confirmar);
+        Util.habilitar(true, jTxt_Meb_NumVendas, jFmt_Meb_Data, jTxt_Meb_Total, jCbo_Meb_Clientes, jCbo_Meb_Vendedor, jBtn_Meb_Cancelar, jBtn_Meb_Confirmar);
         Util.habilitar(false, jBtn_Meb_Incluir, jBtn_Meb_Alterar, jBtn_Meb_Pesquisar, jBtn_Meb_Excluir);
-        Util.limparCampos(jTxtNumPedidos, jFmtData, jTxtTotal, jCboClientes, jCboVendedor);
+        Util.limparCampos(jTxt_Meb_NumVendas, jFmt_Meb_Data, jTxt_Meb_Total, jCbo_Meb_Clientes, jCbo_Meb_Vendedor);
 
-        jTxtNumPedidos.grabFocus();
+       vendasProdutoController.setList(new ArrayList());
+        jTxt_Meb_NumVendas.grabFocus();
         incluindo = true;
         mebVendas = new MebVendas();
-        
     }//GEN-LAST:event_jBtn_Meb_IncluirActionPerformed
 
     private void jBtn_Meb_AlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn_Meb_AlterarActionPerformed
         // TODO add your handling code here:
-        Util.habilitar(true, jTxtNumPedidos, jFmtData, jTxtTotal, jCboClientes, jCboVendedor, jBtn_Meb_Cancelar, jBtn_Meb_Confirmar);
-        Util.habilitar(false, jBtn_Meb_Incluir, jBtn_Meb_Alterar, jBtn_Meb_Excluir, jBtn_Meb_Pesquisar);
-        //indica que está no meio de uma alteração
-        incluindo = false;
+        Util.habilitar(true, jTxt_Meb_NumVendas, jFmt_Meb_Data, jTxt_Meb_Total, jCbo_Meb_Clientes, jCbo_Meb_Vendedor, jBtn_Meb_Cancelar, jBtn_Meb_Confirmar);
+        Util.habilitar(false, jBtn_Meb_Incluir, jBtn_Meb_Alterar, jBtn_Meb_Pesquisar);
+         if (mebVendas != null) {
+        //    habilitar(true);
+            incluindo = false;
+        } else {
+            Util.mensagem("Deve ser realizada uma pesquisa antes");
+        }
         
     }//GEN-LAST:event_jBtn_Meb_AlterarActionPerformed
 
     private void jBtn_Meb_ExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn_Meb_ExcluirActionPerformed
         // TODO add your handling code here:
-       
+      /* 
         int resp =  JOptionPane.showConfirmDialog(null, "Deseja excluir o registro?","Confirmar", JOptionPane.YES_NO_OPTION);// configura qual botão eu quero
         if (resp == JOptionPane.YES_OPTION){// confirma que é a opção sim
                            
@@ -370,41 +368,88 @@ public class JDlgVendas extends javax.swing.JDialog {
         
         }
         
-        Util.limparCampos(jTxtNumPedidos, jFmtData, jTxtTotal, jCboClientes, jCboVendedor);
+        */
+        
+         if (mebVendas != null) {
+            if (Util.perguntar("Deseja excluir o pedido?") == true) {
+                VendasProdutoDAO pedidosProdutosDAO = new VendasProdutoDAO();
+                MebVendasProduto mebVendasProduto;
+                for (int linha = 0; linha < jTable1.getRowCount(); linha++) {
+                    mebVendasProduto = vendasProdutoController.getBean(linha);
+                    pedidosProdutosDAO.delete(mebVendasProduto);
+                }
+                vendasDAO.delete(mebVendas);
+            }
+        } else {
+            Util.mensagem("Deve ser realizada uma pesquisa antes");
+        }
+        
+
+        Util.limparCampos(jTxt_Meb_NumVendas, jFmt_Meb_Data, jTxt_Meb_Total, jCbo_Meb_Clientes, jCbo_Meb_Vendedor);
+        mebVendas= null;
     }//GEN-LAST:event_jBtn_Meb_ExcluirActionPerformed
 
     private void jBtn_Meb_ConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn_Meb_ConfirmarActionPerformed
         // TODO add your handling code here:
                   mebVendas = viewBean();
-            if (incluindo == true) {
+        if (incluindo == true) {
             vendasDAO.insert(mebVendas);
-
+            VendasProdutoDAO vendasProdutoDAO = new VendasProdutoDAO();
+            MebVendasProduto mebVendasProduto;
+            for (int linha = 0; linha < jTable1.getRowCount(); linha++) {
+                mebVendasProduto = vendasProdutoController.getBean(linha);
+                mebVendasProduto.setMebVendas(mebVendas);
+                vendasProdutoDAO.insert(mebVendasProduto);
+            }
         } else {
             vendasDAO.update(mebVendas);
-
+            
+            //remover todos os vendas produtos desta vendas
+             VendasProdutoDAO vendasProdutoDAO = new VendasProdutoDAO();
+                for (int linha = 0; linha < jTable1.getRowCount(); linha++) {
+                mebVendasProduto = vendasProdutoController.getBean(linha);
+                mebVendasProduto.setMebVendas(mebVendas);//coloca o vendas no vendas produto
+                vendasProdutoDAO.delete(mebVendasProduto);
+                }
+            //incluir todos os vendasProduto que estao no jtable
+            
+            for (int linha = 0; linha < jTable1.getRowCount(); linha++) {
+                mebVendasProduto = vendasProdutoController.getBean(linha);
+                mebVendasProduto.setMebVendas(mebVendas);//coloca o vendas no vendas produto
+                vendasProdutoDAO.insert(mebVendasProduto);
+            }
         }
-      
         //pegou o que estava do view passou para o bean, do bean passou para o DAO e do DAO para o banco de dados// apagou os campos e habiliotu e desabilitou
-        Util.limparCampos(jTxtNumPedidos, jTxtTotal, jCboClientes, jCboVendedor);
+        Util.limparCampos(jTxt_Meb_NumVendas, jTxt_Meb_Total, jCbo_Meb_Clientes, jCbo_Meb_Vendedor,jFmt_Meb_Data);
         Util.habilitar(true, jBtn_Meb_Incluir, jBtn_Meb_Alterar, jBtn_Meb_Excluir, jBtn_Meb_Pesquisar);
-        Util.habilitar(false, jTxtNumPedidos, jFmtData, jTxtTotal, jCboClientes, jCboVendedor, jBtn_Meb_Cancelar, jBtn_Meb_Confirmar);
-                           mebVendas = null;                   
+        Util.habilitar(false, jTxt_Meb_NumVendas, jFmt_Meb_Data, jTxt_Meb_Total, jCbo_Meb_Clientes, jCbo_Meb_Vendedor, jBtn_Meb_Cancelar, jBtn_Meb_Confirmar);
+        vendasProdutoController.setList(new ArrayList());
+
+        mebVendas = null;                   
 
     }//GEN-LAST:event_jBtn_Meb_ConfirmarActionPerformed
 
     private void jBtn_Meb_CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn_Meb_CancelarActionPerformed
         // TODO add your handling code here:
              Util.habilitar(true, jBtn_Meb_Incluir, jBtn_Meb_Alterar, jBtn_Meb_Excluir, jBtn_Meb_Pesquisar);
-        Util.habilitar(false, jTxtNumPedidos, jFmtData, jTxtTotal, jCboClientes, jCboVendedor, jBtn_Meb_Cancelar, jBtn_Meb_Confirmar);
-        Util.limparCampos(jTxtNumPedidos, jFmtData, jTxtTotal, jCboClientes, jCboVendedor);
+        Util.habilitar(false, jTxt_Meb_NumVendas, jFmt_Meb_Data, jTxt_Meb_Total, jCbo_Meb_Clientes, jCbo_Meb_Vendedor, jBtn_Meb_Cancelar, jBtn_Meb_Confirmar);
+        Util.limparCampos(jTxt_Meb_NumVendas, jFmt_Meb_Data, jTxt_Meb_Total, jCbo_Meb_Clientes, jCbo_Meb_Vendedor);
         Util.mensagem("Operação cancelada");
+        vendasProdutoController.setList(new ArrayList());
+
                mebVendas = null;                   
 
     }//GEN-LAST:event_jBtn_Meb_CancelarActionPerformed
 
     private void jBtn_Meb_PesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn_Meb_PesquisarActionPerformed
         JDlgVendasPesquisa jDlgVendasPesquisa = new JDlgVendasPesquisa(null, true); 
+        jDlgVendasPesquisa.setTelaAnterior(this);
         jDlgVendasPesquisa.setVisible(true);
+        
+   Util.habilitar(true, jTxt_Meb_NumVendas, jFmt_Meb_Data, jTxt_Meb_Total, jCbo_Meb_Clientes, jCbo_Meb_Vendedor, jBtn_Meb_Cancelar, jBtn_Meb_Confirmar);
+   Util.habilitar(false,  jBtn_Meb_Pesquisar, jBtn_Meb_Incluir);
+
+
     }//GEN-LAST:event_jBtn_Meb_PesquisarActionPerformed
 
     
@@ -414,39 +459,57 @@ public class JDlgVendas extends javax.swing.JDialog {
     private void jBtnIncluirProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirProdActionPerformed
         // TODO add your handling code here:
         
-        JDlgVendasProduto jDlgVendasProduto = new JDlgVendasProduto(null, true);
+        jDlgVendasProduto = new JDlgVendasProduto(null, true);
         jDlgVendasProduto.setTitle("Inclusão de produtos");
-   //     jDlgVendasProduto.setTelaAnterior(this);
+        jDlgVendasProduto.setTelaAnterior(this);
         jDlgVendasProduto.setVisible(true);
                
-          
-                
+         
     }//GEN-LAST:event_jBtnIncluirProdActionPerformed
 
     private void jBtnAlterarProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarProdActionPerformed
-        // TODO add your handling code here:
-        JDlgVendasProduto jDlgVendasProduto = new JDlgVendasProduto(null, true);
-        jDlgVendasProduto.setTitle("Alteração de produtos");
-  //      jDlgVendasProduto.setTelaAnterior(this);
-        jDlgVendasProduto.setVisible(true);
-        
+//        JDlgVendasProduto jDlgVendasProduto = new JDlgVendasProduto(null, true);
+//        jDlgVendasProduto.setTitle("Alteração de produtos");
+//        jDlgVendasProduto.setTelaAnterior(this);
+//        int linSel = jTable1.getSelectedRow();
+//        MebVendasProduto mebVendasProduto = (MebVendasProduto) vendasProdutoController.getBean(linSel);
+//        jDlgVendasProduto.beanView(mebVendasProduto);
+//        jDlgVendasProduto.setVisible(true); 
+
+       int rowSel = jTable1.getSelectedRow(); //pegar a linha selecionada
+        if (rowSel != -1){
+          mebVendasProduto = vendasProdutoController.getBean(rowSel);
+          
+          jDlgVendasProduto = new JDlgVendasProduto(new javax.swing.JFrame(), true);
+          incluindo = false;
+          jDlgVendasProduto.setTitle("Alteração de Produtos");
+          jDlgVendasProduto.setTelaAnterior(this);
+          jDlgVendasProduto.beanView(mebVendasProduto);
+          
+          jDlgVendasProduto.setVisible(true);
+        Util.habilitar(true, jBtn_Meb_Incluir, jBtn_Meb_Alterar, jBtn_Meb_Excluir, jBtn_Meb_Pesquisar);
+        Util.habilitar(false, jTxt_Meb_NumVendas, jFmt_Meb_Data, jTxt_Meb_Total, jCbo_Meb_Clientes, jCbo_Meb_Vendedor, jBtn_Meb_Cancelar, jBtn_Meb_Confirmar);
+     
+        } else{
+            Util.mensagem("Selecione um registro para fazer alteração");
+        }
     }//GEN-LAST:event_jBtnAlterarProdActionPerformed
 
     private void jBtnExcluirProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirProdActionPerformed
         // TODO add your handling code here:
-        int linha = jTable1.getSelectedRow();
-        if(linha == -1){
+        if(getSelectedRowProd() == -1){
             Util.mensagem("Nenhuma linha selecionada");
         }else{
             if(Util.perguntar("Confrima a exclusão do produto??") == true){
-            //    PedidosProdutosControle.removeBean(linha);
+           ((VendasProdutoController) jTable1.getModel()).removeBean(getSelectedRowProd());
+
             }
         }
     }//GEN-LAST:event_jBtnExcluirProdActionPerformed
 
-    private void jCboVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCboVendedorActionPerformed
+    private void jCbo_Meb_VendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCbo_Meb_VendedorActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCboVendedorActionPerformed
+    }//GEN-LAST:event_jCbo_Meb_VendedorActionPerformed
 
     /**
      * @param args the command line arguments
@@ -507,9 +570,9 @@ public class JDlgVendas extends javax.swing.JDialog {
     private javax.swing.JButton jBtn_Meb_Excluir;
     private javax.swing.JButton jBtn_Meb_Incluir;
     private javax.swing.JButton jBtn_Meb_Pesquisar;
-    private javax.swing.JComboBox<MebClientes> jCboClientes;
-    private javax.swing.JComboBox<MebUsuarios> jCboVendedor;
-    private javax.swing.JFormattedTextField jFmtData;
+    private javax.swing.JComboBox<MebClientes> jCbo_Meb_Clientes;
+    private javax.swing.JComboBox<MebUsuarios> jCbo_Meb_Vendedor;
+    private javax.swing.JFormattedTextField jFmt_Meb_Data;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -518,7 +581,7 @@ public class JDlgVendas extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTxtNumPedidos;
-    private javax.swing.JTextField jTxtTotal;
+    private javax.swing.JTextField jTxt_Meb_NumVendas;
+    private javax.swing.JTextField jTxt_Meb_Total;
     // End of variables declaration//GEN-END:variables
 }

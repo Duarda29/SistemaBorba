@@ -1,5 +1,5 @@
 package bean;
-// Generated 25/09/2023 11:58:18 by Hibernate Tools 4.3.1
+// Generated 04/12/2023 10:00:31 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -48,6 +48,7 @@ public class MebUsuarios  implements java.io.Serializable {
         this.mebAtivo = mebAtivo;
     }
     
+   
      @Id 
 
     
@@ -129,6 +130,23 @@ public class MebUsuarios  implements java.io.Serializable {
     public void setMebAtivo(String mebAtivo) {
         this.mebAtivo = mebAtivo;
     }
+
+    
+     @Override
+         public String toString(){
+    return this.getMebNome();
+    }
+
+
+ public boolean equals (Object object){
+    if(object instanceof MebUsuarios){
+        MebUsuarios mebUsuarios = (MebUsuarios) object;
+    if(this.getIdMebUsuarios()== mebUsuarios.getIdMebUsuarios()){
+    return true;
+    } 
+    }
+    return false;
+}
 
 
 }

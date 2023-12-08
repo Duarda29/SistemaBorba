@@ -19,6 +19,7 @@ public class UsuariosController extends AbstractTableModel{ // esse controla o c
     
        this.lista = lista; //colocar o this porque esta se referindo a lista da classe
        this.fireTableDataChanged();
+       
         
     }
     

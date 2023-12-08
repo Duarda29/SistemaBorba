@@ -1,5 +1,5 @@
 package bean;
-// Generated 25/09/2023 11:58:18 by Hibernate Tools 4.3.1
+// Generated 04/12/2023 10:00:31 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -225,6 +225,24 @@ public class MebClientes  implements java.io.Serializable {
     public void setMebTelefoneResidencial(String mebTelefoneResidencial) {
         this.mebTelefoneResidencial = mebTelefoneResidencial;
     }
+
+
+     @Override
+     public String toString(){
+    return this.getMebNome();
+    }
+
+     
+     @Override
+ public boolean equals (Object object){
+    if(object instanceof MebClientes){
+        MebClientes mebClientes = (MebClientes) object;
+    if(this.getIdMebClientes()== mebClientes.getIdMebClientes()){
+    return true;
+    } 
+    }
+    return false;
+}
 
 }
 

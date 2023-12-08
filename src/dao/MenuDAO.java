@@ -8,6 +8,7 @@ package dao;
 import bean.MebMenu;
 import java.util.List;
 import org.hibernate.Criteria;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 /**
  *
@@ -67,20 +68,20 @@ public class MenuDAO extends DAO_Abstract{
         return lista;
     }
     
-     public List listTamanhos(int mebTamanhos){
+     public List listBorda(String mebBorda){
         session.beginTransaction();
         Criteria crit = session.createCriteria(MebMenu.class);
-        crit.add(Restrictions.ge("mebTamanhos", mebTamanhos));
+        crit.add(Restrictions.like("mebBorda", mebBorda, MatchMode.ANYWHERE));
         List lista = crit.list();
         session.getTransaction().commit();
         return lista;
     }
     
-      public List listPizzaTamanhos(int mebPizza, int mebTamanhos){
+      public List listPizzaBorda(int mebPizza, String mebBorda){
         session.beginTransaction();
         Criteria crit = session.createCriteria(MebMenu.class);
-        crit.add(Restrictions.ge("mebpizza", mebPizza));
-        crit.add(Restrictions.ge("mebTamanhos", mebTamanhos));
+        crit.add(Restrictions.ge("mebPizza", mebPizza));
+        crit.add(Restrictions.like("mebBorda", mebBorda, MatchMode.ANYWHERE));
         List lista = crit.list();
         session.getTransaction().commit();
         return lista;

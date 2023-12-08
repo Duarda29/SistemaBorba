@@ -3,6 +3,7 @@ package dao;
 import bean.MebUsuarios;
 import java.util.List;
 import org.hibernate.Criteria;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 
@@ -83,6 +84,7 @@ public class UsuariosDAO extends DAO_Abstract{
         return lista;
     }
     
+    
     public List listNivel(int mebNivel){
         session.beginTransaction();
         Criteria crit = session.createCriteria(MebUsuarios.class);
@@ -101,4 +103,8 @@ public class UsuariosDAO extends DAO_Abstract{
         session.getTransaction().commit();
         return lista;
     }
+     
+     
+     
+     
 }

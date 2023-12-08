@@ -119,6 +119,8 @@ public class JDlgClientesPesquisa extends javax.swing.JDialog {
         int rowSel = jTable1.getSelectedRow(); //pegar a linah selecionada
         MebClientes mebClientes = clientesController.getBean(rowSel);
         jDlgClientes.beanView(mebClientes);
+                setVisible(false);
+
 
     }//GEN-LAST:event_jBtn_Meb_ConfirmarActionPerformed
 

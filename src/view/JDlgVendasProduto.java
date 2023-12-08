@@ -7,12 +7,7 @@ package view;
 
 import bean.MebProdutos;
 import bean.MebVendasProduto;
-import bean.MebVendas;
 import dao.ProdutosDAO;
-import dao.VendasDAO;
-import dao.VendasProdutoDAO;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.List;
 import tools.Util;
 
@@ -22,62 +17,48 @@ import tools.Util;
  */
 public class JDlgVendasProduto extends javax.swing.JDialog {
     
-    private JDlgVendasProduto jDlgVendasProduto;
-    private VendasController vendasController;
-    private boolean incluindo;
-    private ProdutosDAO produtosDAO;
-    private MebProdutos mebProdutos;
-    private ProdutosController produtosController;
-    
-      public MebVendasProduto mebVendasProduto = new MebVendasProduto();
-      public VendasProdutoDAO vendasProdutoDAO = new VendasProdutoDAO();
-      public VendasProdutoController vendasProdutoController = new VendasProdutoController();
-
+    JDlgVendas jDlgVendas;
+    int numVendaId;
+    ProdutosDAO produtosDAO;
+    MebProdutos mebProdutos;
+   
     public JDlgVendasProduto(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
+        setTitle("Produtos de Vendas");
 
         
+          produtosDAO = new ProdutosDAO();
           
-        if (incluindo) {
-            setTitle("Inclusão de produtos");
-        } else {
-            setTitle("Alteração de produtos");
-        }
-        setLocationRelativeTo(null);
-        produtosDAO = new ProdutosDAO();
+        List lista = (List) produtosDAO.listAll();
 
-        ProdutosDAO produtoDAO = new ProdutosDAO();
-        List listaProduto = produtoDAO.listAll();
-        for (int i = 0; i < listaProduto.size(); i++) {
-     //       produtosDAO.addItem((MebProdutos) listaProduto.get(i));
+//     for (Object item : lista) {
+//        jCbo_Meb_Produto.addItem((MebProdutos) item);
+//    }
+        
+   for (int i = 0; i < lista.size(); i++) {
+             mebProdutos= (MebProdutos) lista.get(i);
+            jCbo_Meb_Produto.addItem(mebProdutos);
         }
-  
+
+
+    }
+
+    public void setTelaAnterior(JDlgVendas jDlgVendas) {
+        this.jDlgVendas = jDlgVendas;
+//        this.numVendaId = numVendaId;
     }
     
        public MebVendasProduto beanView(MebVendasProduto mebVendasProduto){
-           
-        jTxtQuantidade.setText(String.valueOf(mebVendasProduto.getMebQuantidade()));
-        jTxtValor.setText(String.valueOf(mebVendasProduto.getMebValorUni()));
-        jCboProduto.setSelectedItem(mebVendasProduto.getMebProdutos());
         
-                       return mebVendasProduto;
+        jCbo_Meb_Produto.setSelectedItem(mebVendasProduto.getMebProdutos());
+        jTxt_Meb_Quantidade.setText(String.valueOf(mebVendasProduto.getMebQuantidade()));
+        jTxt_Meb_ValorUnitario.setText(String.valueOf(mebVendasProduto.getMebValorUni()));
+        return mebVendasProduto;
 
        }
        
-        public MebVendasProduto viewBean() {
-        MebVendasProduto mebVendasProduto = new MebVendasProduto();
-       // jTxtQuantidade.setText(mebVendasProduto.getMebQuantidade());
-       // jTxtValor.setText(mebVendasProduto.getMebValorUni());
-
-       return mebVendasProduto;
-       
-        }
-        
-   public void setIncluindo(boolean incluindo) {
-        this.incluindo = incluindo;
-    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -86,11 +67,13 @@ public class JDlgVendasProduto extends javax.swing.JDialog {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jCboProduto = new javax.swing.JComboBox<MebVendasProduto>();
-        jTxtQuantidade = new javax.swing.JTextField();
-        jTxtValor = new javax.swing.JTextField();
+        jCbo_Meb_Produto = new javax.swing.JComboBox<MebProdutos>();
+        jTxt_Meb_Quantidade = new javax.swing.JTextField();
+        jTxt_Meb_ValorUnitario = new javax.swing.JTextField();
         jBtn_Meb_Confirmar = new javax.swing.JButton();
         jBtn_Meb_Cancelar = new javax.swing.JButton();
+        jTxt_Meb_Total = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -100,15 +83,36 @@ public class JDlgVendasProduto extends javax.swing.JDialog {
 
         jLabel8.setText("Quantidade");
 
-        jTxtQuantidade.addActionListener(new java.awt.event.ActionListener() {
+        jCbo_Meb_Produto.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jCbo_Meb_ProdutoItemStateChanged(evt);
+            }
+        });
+        jCbo_Meb_Produto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTxtQuantidadeActionPerformed(evt);
+                jCbo_Meb_ProdutoActionPerformed(evt);
             }
         });
 
-        jTxtValor.addActionListener(new java.awt.event.ActionListener() {
+        jTxt_Meb_Quantidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTxtValorActionPerformed(evt);
+                jTxt_Meb_QuantidadeActionPerformed(evt);
+            }
+        });
+        jTxt_Meb_Quantidade.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTxt_Meb_QuantidadeKeyReleased(evt);
+            }
+        });
+
+        jTxt_Meb_ValorUnitario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTxt_Meb_ValorUnitarioActionPerformed(evt);
+            }
+        });
+        jTxt_Meb_ValorUnitario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTxt_Meb_ValorUnitarioKeyReleased(evt);
             }
         });
 
@@ -128,6 +132,14 @@ public class JDlgVendasProduto extends javax.swing.JDialog {
             }
         });
 
+        jTxt_Meb_Total.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTxt_Meb_TotalActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setText("Total");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -142,15 +154,19 @@ public class JDlgVendasProduto extends javax.swing.JDialog {
                         .addGap(40, 40, 40)
                         .addComponent(jBtn_Meb_Cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jCboProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jCbo_Meb_Produto, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jTxtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTxt_Meb_Quantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel8))
+                            .addGap(18, 18, 18)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jTxt_Meb_ValorUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel6))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel6)
-                                .addComponent(jTxtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(jLabel7)
+                                .addComponent(jTxt_Meb_Total, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(43, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -159,15 +175,17 @@ public class JDlgVendasProduto extends javax.swing.JDialog {
                 .addGap(32, 32, 32)
                 .addComponent(jLabel5)
                 .addGap(13, 13, 13)
-                .addComponent(jCboProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jCbo_Meb_Produto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jLabel6))
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel7))
                 .addGap(7, 7, 7)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTxtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTxtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTxt_Meb_Quantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTxt_Meb_ValorUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTxt_Meb_Total, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtn_Meb_Confirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
@@ -178,18 +196,27 @@ public class JDlgVendasProduto extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTxtQuantidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtQuantidadeActionPerformed
+    private void jTxt_Meb_QuantidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxt_Meb_QuantidadeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTxtQuantidadeActionPerformed
+    }//GEN-LAST:event_jTxt_Meb_QuantidadeActionPerformed
 
-    private void jTxtValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtValorActionPerformed
+    private void jTxt_Meb_ValorUnitarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxt_Meb_ValorUnitarioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTxtValorActionPerformed
+    }//GEN-LAST:event_jTxt_Meb_ValorUnitarioActionPerformed
 
     private void jBtn_Meb_ConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn_Meb_ConfirmarActionPerformed
         // TODO add your handling code here:
 
-     //   desabilitar();
+        MebVendasProduto mebVendasProduto = new MebVendasProduto();
+        mebVendasProduto.setMebProdutos( (MebProdutos) jCbo_Meb_Produto.getSelectedItem() );
+        mebVendasProduto.setMebQuantidade(Util.strDouble(jTxt_Meb_Quantidade.getText() ));
+        mebVendasProduto.setMebValorUni(Util.strDouble(jTxt_Meb_ValorUnitario.getText()));
+        if (getTitle().toUpperCase().substring(0, 1).equals("I")) {
+         jDlgVendas.vendasProdutoController.addBean(mebVendasProduto);
+        } else {            
+         jDlgVendas.vendasProdutoController.updateBean(jDlgVendas.getSelectedRowProd(), mebVendasProduto);
+        }
+        setVisible(false);
     }//GEN-LAST:event_jBtn_Meb_ConfirmarActionPerformed
 
     private void jBtn_Meb_CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn_Meb_CancelarActionPerformed
@@ -197,6 +224,51 @@ public class JDlgVendasProduto extends javax.swing.JDialog {
       //   desabilitar();
         setVisible(false);
     }//GEN-LAST:event_jBtn_Meb_CancelarActionPerformed
+
+    private void jTxt_Meb_QuantidadeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxt_Meb_QuantidadeKeyReleased
+        // TODO add your handling code here:
+        
+          if (jTxt_Meb_Quantidade.getText().isEmpty() == false) {
+            double unitario = Util.strDouble(jTxt_Meb_ValorUnitario.getText());
+            double quantidade = Util.strDouble(jTxt_Meb_Quantidade.getText());
+              jTxt_Meb_Total.setText(Util.doubleStr(quantidade * unitario));
+        } else {
+              jTxt_Meb_Total.setText("0");
+        }
+        
+    }//GEN-LAST:event_jTxt_Meb_QuantidadeKeyReleased
+
+    private void jCbo_Meb_ProdutoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCbo_Meb_ProdutoItemStateChanged
+        // TODO add your handling code here:
+        jTxt_Meb_Quantidade.setText( "1" );
+        MebProdutos mebProdutos = (MebProdutos) jCbo_Meb_Produto.getSelectedItem();
+        jTxt_Meb_ValorUnitario.setText( Util.doubleStr(mebProdutos.getMebValorUnitario()));
+        jTxt_Meb_Total.setText(jTxt_Meb_ValorUnitario.getText());
+    }//GEN-LAST:event_jCbo_Meb_ProdutoItemStateChanged
+
+    private void jTxt_Meb_TotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxt_Meb_TotalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTxt_Meb_TotalActionPerformed
+
+    private void jTxt_Meb_ValorUnitarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxt_Meb_ValorUnitarioKeyReleased
+        // TODO add your handling code here:
+        
+     if(jTxt_Meb_ValorUnitario.getText().isEmpty() == false){
+     double unitario = Util.strDouble(jTxt_Meb_ValorUnitario.getText());
+     double quantidade = Util.strDouble(jTxt_Meb_Quantidade.getText());
+     jTxt_Meb_Total.setText(Util.doubleStr(quantidade*unitario));
+     }
+     else{
+     jTxt_Meb_Total.setText("0");
+     
+     
+     }
+
+    }//GEN-LAST:event_jTxt_Meb_ValorUnitarioKeyReleased
+
+    private void jCbo_Meb_ProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCbo_Meb_ProdutoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCbo_Meb_ProdutoActionPerformed
 
     
     
@@ -249,12 +321,14 @@ public class JDlgVendasProduto extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtn_Meb_Cancelar;
     private javax.swing.JButton jBtn_Meb_Confirmar;
-    private javax.swing.JComboBox<MebVendasProduto> jCboProduto;
+    private javax.swing.JComboBox<MebProdutos> jCbo_Meb_Produto;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JTextField jTxtQuantidade;
-    private javax.swing.JTextField jTxtValor;
+    private javax.swing.JTextField jTxt_Meb_Quantidade;
+    private javax.swing.JTextField jTxt_Meb_Total;
+    private javax.swing.JTextField jTxt_Meb_ValorUnitario;
     // End of variables declaration//GEN-END:variables
 
 }

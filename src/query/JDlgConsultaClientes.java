@@ -5,6 +5,7 @@
  */
 package query;
 
+import bean.MebClientes;
 import dao.ClientesDAO;
 import java.util.List;
 import tools.Util;
@@ -26,12 +27,14 @@ public class JDlgConsultaClientes extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
-         clientesController = new ClientesController();
+        setTitle("Consulta de Clientes");
+        clientesController = new ClientesController();
          clientesDAO = new ClientesDAO();
          List lista = clientesDAO.listAll();
          clientesController.setList(lista);
          jTable1.setModel(clientesController);
-
+         
+       
     }
 
     /**
@@ -48,7 +51,7 @@ public class JDlgConsultaClientes extends javax.swing.JDialog {
         jTxt_Meb_Nome = new javax.swing.JTextField();
         jBtn_Meb_Consultar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jTxt_Meb_Estado = new javax.swing.JTextField();
+        jCbo_Meb_Estado = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
@@ -73,11 +76,7 @@ public class JDlgConsultaClientes extends javax.swing.JDialog {
 
         jLabel2.setText("Estado - Maior que");
 
-        jTxt_Meb_Estado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTxt_Meb_EstadoActionPerformed(evt);
-            }
-        });
+        jCbo_Meb_Estado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AC - 0", "AL - 1", "AP - 2", "AM - 3", "BA - 4", "CE - 5", "ES - 6", "GO - 7", "MA - 8", "MT - 9", "MS - 10", "MG - 11", "PA - 12", "PB - 13", "PR -14", "PE - 15", "PI - 16", "RJ - 17", "RN - 18", "RS - 19", "RO - 20", "RR - 21", "SC - 22", "SP - 23", "SE - 24", "TO - 25", "DF -26", "PJC - Paraguai - 27" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -87,15 +86,15 @@ public class JDlgConsultaClientes extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(jTxt_Meb_Nome, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(39, 39, 39)
+                    .addComponent(jTxt_Meb_Nome, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(38, 38, 38)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 363, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jTxt_Meb_Estado, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
+                        .addComponent(jCbo_Meb_Estado, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jBtn_Meb_Consultar)))
                 .addContainerGap())
         );
@@ -110,8 +109,8 @@ public class JDlgConsultaClientes extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTxt_Meb_Nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtn_Meb_Consultar)
-                    .addComponent(jTxt_Meb_Estado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(34, Short.MAX_VALUE))
+                    .addComponent(jCbo_Meb_Estado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -139,7 +138,7 @@ public class JDlgConsultaClientes extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE))
         );
 
         pack();
@@ -150,31 +149,40 @@ public class JDlgConsultaClientes extends javax.swing.JDialog {
     }//GEN-LAST:event_jTxt_Meb_NomeActionPerformed
 
     private void jBtn_Meb_ConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn_Meb_ConsultarActionPerformed
-        if(jTxt_Meb_Nome.getText().equals("") && jTxt_Meb_Estado.getText().equals("")){
+
+    if (jTxt_Meb_Nome.getText().isEmpty() && jCbo_Meb_Estado.getSelectedItem() == null) {
+        clientesController = new ClientesController();
          List lista = clientesDAO.listAll();
-         clientesController.setList(lista);
-        } else{
-            if(!jTxt_Meb_Nome.getText().equals("") && !jTxt_Meb_Estado.getText().equals("")){
-             List lista = clientesDAO.listNomeEstado(jTxt_Meb_Nome.getText(), Util.strInt(jTxt_Meb_Estado.getText()));
-              clientesController.setList(lista);
-          }else{
-            if(! jTxt_Meb_Nome.getText().equals("")){
-             List lista = clientesDAO.listNome(jTxt_Meb_Nome.getText());//estudar pra explicar para o Marcos
-              clientesController.setList(lista);
-          }else{
-             if(! jTxt_Meb_Estado.getText().equals("")) {
-              List lista = clientesDAO.listEstado(Util.strInt(jTxt_Meb_Estado.getText()));
-               clientesController.setList(lista);
-             }
-           }
-         } 
-       }
+        clientesController.setList(lista);
+        jTable1.setModel(clientesController);
+    } else{
+            if (!jTxt_Meb_Nome.getText().isEmpty() && jCbo_Meb_Estado.getSelectedItem() != null){
+        List lista = clientesDAO.listNomeEstado(jTxt_Meb_Nome.getText(), jCbo_Meb_Estado.getSelectedIndex());
+        clientesController = new ClientesController();
+        clientesController.setList(lista);
+        jTable1.setModel(clientesController);
+    
+    } else 
+            {if (!jTxt_Meb_Nome.getText().isEmpty()) {
+        List lista = clientesDAO.listNome(jTxt_Meb_Nome.getText());
+        clientesController = new ClientesController();
+        clientesController.setList(lista);
+        jTable1.setModel(clientesController);
+    } 
+    if (jCbo_Meb_Estado.getSelectedItem() != null) {
+        List lista = clientesDAO.listEstado(jCbo_Meb_Estado.getSelectedIndex());
+        clientesController = new ClientesController();
+        clientesController.setList(lista);
+        jTable1.setModel(clientesController);
+    
+    }
+        }   
+    }
+        
+
+
         
     }//GEN-LAST:event_jBtn_Meb_ConsultarActionPerformed
-
-    private void jTxt_Meb_EstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxt_Meb_EstadoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTxt_Meb_EstadoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -227,12 +235,12 @@ public class JDlgConsultaClientes extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtn_Meb_Consultar;
+    private javax.swing.JComboBox<String> jCbo_Meb_Estado;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTxt_Meb_Estado;
     private javax.swing.JTextField jTxt_Meb_Nome;
     // End of variables declaration//GEN-END:variables
 }

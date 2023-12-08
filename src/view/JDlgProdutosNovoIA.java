@@ -8,6 +8,7 @@ package view;
 import tools.Util;
 import bean.MebProdutos;
 import dao.ProdutosDAO;
+import java.util.List;
 
 
 /**
@@ -15,6 +16,8 @@ import dao.ProdutosDAO;
  * @author maria
  */
 public class JDlgProdutosNovoIA extends javax.swing.JDialog {
+
+ProdutosController produtosController;
 
 JDlgProdutosNovo jDlgProdutosNovo;
     
@@ -34,23 +37,26 @@ JDlgProdutosNovo jDlgProdutosNovo;
        mebProdutos.setMebQuantidade(jTxt_Meb_Quantidade.getText());     
        mebProdutos.setMebEntrega(jChb_Meb_Entrega.isSelected() == true ? "S" : "N");
        mebProdutos.setMebComplemento(jTxt_Meb_Complemento.getText());  
-
+       mebProdutos.setMebValorUnitario(Util.strDouble(jTxt_Meb_Valor.getText()));
         return mebProdutos;
 
     }
     
     public void beanView(MebProdutos mebProdutos) {
-    String valor = String.valueOf(mebProdutos.getIdMebProdutos());
-    jTxt_Meb_Codigo.setText(valor);
+    String codigo = String.valueOf(mebProdutos.getIdMebProdutos());
+    jTxt_Meb_Codigo.setText(codigo);
     jTxt_Meb_Nome.setText(mebProdutos.getMebNomeProduto()); 
     jCbo_Meb_Categoria.setSelectedIndex(mebProdutos.getMebCategoria()); 
     jTxt_Meb_Quantidade.setText(mebProdutos.getMebQuantidade()); 
+    jTxt_Meb_Valor.setText(Util.doubleStr(mebProdutos.getMebValorUnitario()));
+
     if (jChb_Meb_Entrega.isSelected() == true) {
             mebProdutos.setMebEntrega("S");
         } else {
             mebProdutos.setMebEntrega("N");
         }
     }
+    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -59,9 +65,9 @@ JDlgProdutosNovo jDlgProdutosNovo;
         jLabel6 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jBtn_Meb_Incluir = new javax.swing.JButton();
-        jBtn_Meb_Alterar = new javax.swing.JButton();
+        jBtn_Meb_Cancelar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jTxt_Meb_Codigo = new javax.swing.JTextField();
+        jTxt_Meb_Valor = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jTxt_Meb_Nome = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -71,6 +77,8 @@ JDlgProdutosNovo jDlgProdutosNovo;
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jTxt_Meb_Complemento = new javax.swing.JTextField();
+        jTxt_Meb_Codigo = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
 
         jLabel6.setText("jLabel6");
 
@@ -91,20 +99,20 @@ JDlgProdutosNovo jDlgProdutosNovo;
         });
         jPanel1.add(jBtn_Meb_Incluir);
 
-        jBtn_Meb_Alterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-alterar-25.png"))); // NOI18N
-        jBtn_Meb_Alterar.setText("Alterar");
-        jBtn_Meb_Alterar.addActionListener(new java.awt.event.ActionListener() {
+        jBtn_Meb_Cancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-alterar-25.png"))); // NOI18N
+        jBtn_Meb_Cancelar.setText("Cancelar");
+        jBtn_Meb_Cancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtn_Meb_AlterarActionPerformed(evt);
+                jBtn_Meb_CancelarActionPerformed(evt);
             }
         });
-        jPanel1.add(jBtn_Meb_Alterar);
+        jPanel1.add(jBtn_Meb_Cancelar);
 
         jLabel1.setText("Código");
 
-        jTxt_Meb_Codigo.addActionListener(new java.awt.event.ActionListener() {
+        jTxt_Meb_Valor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTxt_Meb_CodigoActionPerformed(evt);
+                jTxt_Meb_ValorActionPerformed(evt);
             }
         });
 
@@ -137,6 +145,14 @@ JDlgProdutosNovo jDlgProdutosNovo;
             }
         });
 
+        jTxt_Meb_Codigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTxt_Meb_CodigoActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setText("Valor");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -145,9 +161,7 @@ JDlgProdutosNovo jDlgProdutosNovo;
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
                     .addComponent(jLabel2)
-                    .addComponent(jTxt_Meb_Codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTxt_Meb_Nome, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -161,17 +175,33 @@ JDlgProdutosNovo jDlgProdutosNovo;
                                 .addGap(18, 18, 18)
                                 .addComponent(jChb_Meb_Entrega))))
                     .addComponent(jLabel5)
-                    .addComponent(jTxt_Meb_Complemento, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTxt_Meb_Complemento, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(293, 293, 293))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jTxt_Meb_Codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addComponent(jTxt_Meb_Valor, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(8, 8, 8)))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
+                .addGap(19, 19, 19)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTxt_Meb_Codigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTxt_Meb_Valor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTxt_Meb_Codigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTxt_Meb_Nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -187,7 +217,7 @@ JDlgProdutosNovo jDlgProdutosNovo;
                 .addGap(18, 18, 18)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTxt_Meb_Complemento, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+                .addComponent(jTxt_Meb_Complemento, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -196,21 +226,31 @@ JDlgProdutosNovo jDlgProdutosNovo;
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtn_Meb_IncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn_Meb_IncluirActionPerformed
-       MebProdutos mebProdutos = viewBean();
-        ProdutosDAO produtosDAO = new ProdutosDAO();
-        produtosDAO.insert(mebProdutos);
+        MebProdutos mebProdutos = viewBean();
+      ProdutosDAO produtosDAO = new ProdutosDAO();
+      if(getTitle().toUpperCase().substring(0 ,1).equals("I")){
+          produtosDAO.insert(mebProdutos);
+      }else{
+          produtosDAO.update(mebProdutos);
+      }
         setVisible(false);
-
+            
+        //atualizar a lista no jtable
+          List lista = produtosDAO.listAll();
+          produtosController.setList(lista);
+        
+        Util.limparCampos(jTxt_Meb_Codigo, jTxt_Meb_Nome,jCbo_Meb_Categoria, jTxt_Meb_Quantidade, jChb_Meb_Entrega, jTxt_Meb_Complemento, jTxt_Meb_Valor );
     }//GEN-LAST:event_jBtn_Meb_IncluirActionPerformed
 
-    private void jBtn_Meb_AlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn_Meb_AlterarActionPerformed
-        setVisible(false);
+    private void jBtn_Meb_CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn_Meb_CancelarActionPerformed
+        Util.limparCampos(jTxt_Meb_Codigo, jTxt_Meb_Nome,jCbo_Meb_Categoria, jTxt_Meb_Quantidade, jChb_Meb_Entrega, jTxt_Meb_Complemento, jTxt_Meb_Valor );
+        Util.mensagem("Operação cancelada");
+//fazer um limpar campos aqui
+    }//GEN-LAST:event_jBtn_Meb_CancelarActionPerformed
 
-    }//GEN-LAST:event_jBtn_Meb_AlterarActionPerformed
-
-    private void jTxt_Meb_CodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxt_Meb_CodigoActionPerformed
+    private void jTxt_Meb_ValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxt_Meb_ValorActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTxt_Meb_CodigoActionPerformed
+    }//GEN-LAST:event_jTxt_Meb_ValorActionPerformed
 
     private void jTxt_Meb_NomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxt_Meb_NomeActionPerformed
         // TODO add your handling code here:
@@ -223,6 +263,10 @@ JDlgProdutosNovo jDlgProdutosNovo;
     private void jTxt_Meb_ComplementoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxt_Meb_ComplementoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTxt_Meb_ComplementoActionPerformed
+
+    private void jTxt_Meb_CodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxt_Meb_CodigoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTxt_Meb_CodigoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -267,7 +311,7 @@ JDlgProdutosNovo jDlgProdutosNovo;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBtn_Meb_Alterar;
+    private javax.swing.JButton jBtn_Meb_Cancelar;
     private javax.swing.JButton jBtn_Meb_Incluir;
     private javax.swing.JComboBox<String> jCbo_Meb_Categoria;
     private javax.swing.JCheckBox jChb_Meb_Entrega;
@@ -277,10 +321,12 @@ JDlgProdutosNovo jDlgProdutosNovo;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTxt_Meb_Codigo;
     private javax.swing.JTextField jTxt_Meb_Complemento;
     private javax.swing.JTextField jTxt_Meb_Nome;
     private javax.swing.JTextField jTxt_Meb_Quantidade;
+    private javax.swing.JTextField jTxt_Meb_Valor;
     // End of variables declaration//GEN-END:variables
 }

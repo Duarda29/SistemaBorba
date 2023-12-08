@@ -5,37 +5,49 @@
  */
 package query;
 
-import bean.MebMenu;
-import dao.MenuDAO;
+import dao.VendasDAO;
+import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.MaskFormatter;
 import tools.Util;
-import view.MenuController;
+import view.JDlgVendas;
+import view.VendasController;
 
 /**
  *
  * @author maria
  */
-public class JDlgConsultaMenu extends javax.swing.JDialog {
+public class JDlgConsultaVendas extends javax.swing.JDialog {
     
-     MenuController menuController;
-     MenuDAO menuDAO; 
+    VendasController vendasController;
+    VendasDAO vendasDAO;
+
 
     /**
      * Creates new form jDlgConsultaUsuarios
      */
-    public JDlgConsultaMenu(java.awt.Frame parent, boolean modal) {
+    public JDlgConsultaVendas(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
-        setTitle("Consulta de Menu");
-        menuController = new MenuController();
-         menuDAO = new MenuDAO();
-         List lista = menuDAO.listAll();
-         menuController.setList(lista);
-         jTable1.setModel(menuController);
+        setTitle("Consulta de Vendas");
+         vendasController = new VendasController();
+         vendasDAO = new VendasDAO();
+         List lista = vendasDAO.listAll();
+         vendasController.setList(lista);
+         jTable1.setModel(vendasController);
          
-       
+         
+         
+         
+
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -48,10 +60,10 @@ public class JDlgConsultaMenu extends javax.swing.JDialog {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTxt_Meb_Borda = new javax.swing.JTextField();
         jBtn_Meb_Consultar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jCbo_Meb_Pizza = new javax.swing.JComboBox<>();
+        jTxt_Meb_Total = new javax.swing.JTextField();
+        jFmt_Meb_Data = new javax.swing.JFormattedTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
@@ -59,13 +71,7 @@ public class JDlgConsultaMenu extends javax.swing.JDialog {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel1.setText("Bordas");
-
-        jTxt_Meb_Borda.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTxt_Meb_BordaActionPerformed(evt);
-            }
-        });
+        jLabel1.setText("data da Venda");
 
         jBtn_Meb_Consultar.setText("Consultar");
         jBtn_Meb_Consultar.addActionListener(new java.awt.event.ActionListener() {
@@ -74,12 +80,11 @@ public class JDlgConsultaMenu extends javax.swing.JDialog {
             }
         });
 
-        jLabel2.setText("Pizza - Maior que");
+        jLabel2.setText("Total da Venda");
 
-        jCbo_Meb_Pizza.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Calabresa - 0", "Frango c/ Catupity - 1", "Napolitano - 2", "Abacaxi - 3", "Portuguesa - 4", "4 Queijos - 5", "Moda da casa - 6", " Brigadeiro -7", " " }));
-        jCbo_Meb_Pizza.addActionListener(new java.awt.event.ActionListener() {
+        jTxt_Meb_Total.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCbo_Meb_PizzaActionPerformed(evt);
+                jTxt_Meb_TotalActionPerformed(evt);
             }
         });
 
@@ -91,15 +96,15 @@ public class JDlgConsultaMenu extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(jTxt_Meb_Borda, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jFmt_Meb_Data, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(38, 38, 38)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
-                        .addGap(0, 372, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jCbo_Meb_Pizza, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jTxt_Meb_Total, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
                         .addComponent(jBtn_Meb_Consultar)))
                 .addContainerGap())
         );
@@ -112,21 +117,21 @@ public class JDlgConsultaMenu extends javax.swing.JDialog {
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTxt_Meb_Borda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtn_Meb_Consultar)
-                    .addComponent(jCbo_Meb_Pizza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(42, Short.MAX_VALUE))
+                    .addComponent(jTxt_Meb_Total, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jFmt_Meb_Data, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Id", "Data", "Comprador", "Vendedor", "Total"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -143,52 +148,68 @@ public class JDlgConsultaMenu extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTxt_Meb_BordaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxt_Meb_BordaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTxt_Meb_BordaActionPerformed
-
     private void jBtn_Meb_ConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn_Meb_ConsultarActionPerformed
+//        if(jFmt_Meb_Data.getText().equals("") && jTxt_Meb_Total.getText().equals("")){
+//         List lista = vendasDAO.listAll();
+//         vendasController.setList(lista);
+//        } else{
+//            if(!jFmt_Meb_Data.getText().equals("") && !jTxt_Meb_Total.getText().equals("")){
+//             Date data = Util.strDate(jFmt_Meb_Data.getText()); 
+//             double mebTotal = Util.strDouble(jTxt_Meb_Total.getText());
+//             jTxt_Meb_Total.setText(String.valueOf(mebTotal));
+//             List lista = vendasDAO.listDataTotal(data, mebTotal);
+//             vendasController.setList(lista);
+//        
+//          }else{
+//            if(! jFmt_Meb_Data.getText().equals("")){
+//             Date data = Util.strDate(jFmt_Meb_Data.getText());
+//             List lista = vendasDAO.listData(data);//estudar pra explicar para o Marcos
+//              vendasController.setList(lista);
+//          }else{
+//             if(! jTxt_Meb_Total.getText().equals("")) {
+//              double mebTotal = Util.strDouble(jTxt_Meb_Total.getText());
+//              jTxt_Meb_Total.setText(String.valueOf(mebTotal));
+//              List lista = vendasDAO.listTotal(Util.strDouble(jTxt_Meb_Total.getText()));
+//               vendasController.setList(lista);
+//             }
+//           }
+//         }
+//       }
+        
+if (jTxt_Meb_Total.getText().equals("") && jFmt_Meb_Data.getText().equals("")) {
+            List lista = vendasDAO.listAll();
+            vendasController.setList(lista);
+        } else {
+            if (!jTxt_Meb_Total.getText().equals("") && !jFmt_Meb_Data.getText().equals("")) {
+                Date data = Util.strDate(jFmt_Meb_Data.getText());
+                List lista = vendasDAO.listDataTotal(data ,Util.strDouble(jTxt_Meb_Total.getText()));
+                vendasController.setList(lista);
+            } else {
+                if (!jTxt_Meb_Total.getText().equals("")) {
+                    List lista = vendasDAO.listTotal(Util.strDouble(jTxt_Meb_Total.getText()));
+                    vendasController.setList(lista);
+                } else {
+                    if (!jFmt_Meb_Data.getText().equals("")) {
+                        Date data = Util.strDate(jFmt_Meb_Data.getText());
+                        List lista = vendasDAO.listData(data);
+                        vendasController.setList(lista);
+                    }
+                }
+            }
+        }
 
-   if (jTxt_Meb_Borda.getText().isEmpty() && jCbo_Meb_Pizza.getSelectedItem() == null) {
-        menuController = new MenuController();
-         List lista = menuDAO.listAll();
-        menuController.setList(lista);
-        jTable1.setModel(menuController);
-    } else{
-            if (!jTxt_Meb_Borda.getText().isEmpty() && jCbo_Meb_Pizza.getSelectedItem() != null){
-        List lista = menuDAO.listPizzaBorda(Util.strInt(jTxt_Meb_Borda.getText()), Util.intStr(jCbo_Meb_Pizza.getSelectedIndex()));
-        menuController = new MenuController();
-        menuController.setList(lista);
-        jTable1.setModel(menuController);
-    
-    } else 
-            {if (!jTxt_Meb_Borda.getText().isEmpty()) {
-        List lista = menuDAO.listBorda(jTxt_Meb_Borda.getText());
-        menuController = new MenuController();
-        menuController.setList(lista);
-        jTable1.setModel(menuController);
-    } 
-    if (jCbo_Meb_Pizza.getSelectedItem() != null) {
-        List lista = menuDAO.listPizza(jCbo_Meb_Pizza.getSelectedIndex());
-        menuController = new MenuController();
-        menuController.setList(lista);
-        jTable1.setModel(menuController);
-    
-    }
-        }   
-    }
-       
+
     }//GEN-LAST:event_jBtn_Meb_ConsultarActionPerformed
 
-    private void jCbo_Meb_PizzaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCbo_Meb_PizzaActionPerformed
+    private void jTxt_Meb_TotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxt_Meb_TotalActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCbo_Meb_PizzaActionPerformed
+    }//GEN-LAST:event_jTxt_Meb_TotalActionPerformed
 
     /**
      * @param args the command line arguments
@@ -207,26 +228,14 @@ public class JDlgConsultaMenu extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JDlgConsultaMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDlgConsultaVendas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JDlgConsultaMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDlgConsultaVendas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JDlgConsultaMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDlgConsultaVendas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JDlgConsultaMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDlgConsultaVendas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -235,7 +244,7 @@ public class JDlgConsultaMenu extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                JDlgConsultaMenu dialog = new JDlgConsultaMenu(new javax.swing.JFrame(), true);
+                JDlgConsultaVendas dialog = new JDlgConsultaVendas(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -249,12 +258,12 @@ public class JDlgConsultaMenu extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtn_Meb_Consultar;
-    private javax.swing.JComboBox<String> jCbo_Meb_Pizza;
+    private javax.swing.JFormattedTextField jFmt_Meb_Data;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTxt_Meb_Borda;
+    private javax.swing.JTextField jTxt_Meb_Total;
     // End of variables declaration//GEN-END:variables
 }

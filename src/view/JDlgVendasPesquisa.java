@@ -16,9 +16,8 @@ import java.util.List;
 public class JDlgVendasPesquisa extends javax.swing.JDialog {
     
     private JDlgVendas jDlgVendas; //metodo privado
-    
     private  VendasController vendasController = new VendasController(); //deixou como global
-
+    VendasDAO vendasDAO;
     
 
     /**
@@ -31,7 +30,8 @@ public class JDlgVendasPesquisa extends javax.swing.JDialog {
          setTitle("Pesquisar Usuarios");
         setLocationRelativeTo(null);
         
-        VendasDAO vendasDAO = new VendasDAO();
+        vendasController = new VendasController();
+        vendasDAO = new VendasDAO();
         List lista = vendasDAO.listAll();
         vendasController.setList(lista);
         jTable1.setModel(vendasController); //esta falando que o usuariosControle possui o controle da tabela lá
@@ -59,12 +59,18 @@ public class JDlgVendasPesquisa extends javax.swing.JDialog {
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
+                {null, null, null, null},
                 {null, null, null, null}
             },
             new String [] {
-                "Código", "Nome", "Apelido", "Cpf"
+                "Código", "Clientes", "Data", "Total"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jBtn_Meb_Cancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-cancelar-24.png"))); // NOI18N
@@ -117,18 +123,28 @@ public class JDlgVendasPesquisa extends javax.swing.JDialog {
     private void jBtn_Meb_ConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn_Meb_ConfirmarActionPerformed
         // TODO add your handling code here:
        
-        int rowSel = jTable1.getSelectedRow(); //pegar a linah selecionada
+        int rowSel = jTable1.getSelectedRow(); //pegar a linha selecionada
         MebVendas mebVendas = vendasController.getBean(rowSel);
+        jDlgVendas.mebVendas = mebVendas;
         jDlgVendas.beanView(mebVendas);
-        
+        setVisible(false);
+
          
     }//GEN-LAST:event_jBtn_Meb_ConfirmarActionPerformed
 
     private void jBtn_Meb_CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn_Meb_CancelarActionPerformed
         // TODO add your handling code here:
         
-        System.exit(0);
+        setVisible(false);
     }//GEN-LAST:event_jBtn_Meb_CancelarActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+        if(evt.getClickCount() == 2){
+            jBtn_Meb_ConfirmarActionPerformed(null);
+        }
+        
+    }//GEN-LAST:event_jTable1MouseClicked
 
     /**
      * @param args the command line arguments

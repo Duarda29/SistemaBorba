@@ -19,7 +19,8 @@ public class JDlgUsuarioPesquisa extends javax.swing.JDialog {
     
     private  UsuariosController usuariosController = new UsuariosController(); //deixou como global
 
-    
+    UsuariosDAO usuariosDAO;    
+
 
     /**
      * Creates new form jDlgUsuarioPesquisa
@@ -120,7 +121,9 @@ public class JDlgUsuarioPesquisa extends javax.swing.JDialog {
         int rowSel = jTable1.getSelectedRow(); //pegar a linah selecionada
         MebUsuarios mebUsuarios = usuariosController.getBean(rowSel);
         jDlgUsuarios.beanView(mebUsuarios);
+        setVisible(false);
         
+      
          
     }//GEN-LAST:event_jBtn_Meb_ConfirmarActionPerformed
 

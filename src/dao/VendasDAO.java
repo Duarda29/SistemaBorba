@@ -1,8 +1,10 @@
 package dao;
 
 import bean.MebVendas;
+import java.util.Date;
 import java.util.List;
 import org.hibernate.Criteria;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 
 /**
@@ -15,7 +17,7 @@ public class VendasDAO extends DAO_Abstract {
      public void insert(Object object) {
          session.beginTransaction();// todas as conexão com os bancos de dados precisam de uma...
          session.save(object);
-         session.beginTransaction().commit();
+         session.getTransaction().commit();
     }
 
     @Override
@@ -24,7 +26,7 @@ public class VendasDAO extends DAO_Abstract {
          session.flush();// para limpar o cash do hibernate para não enviar coisas erras
          session.clear();// para limpar o cash do hibernate para não enviar coisas erras
          session.update(object);
-         session.beginTransaction().commit();  
+         session.getTransaction().commit();  
     }
 
     @Override
@@ -33,7 +35,7 @@ public class VendasDAO extends DAO_Abstract {
          session.flush();
          session.clear();
          session.delete(object);
-         session.beginTransaction().commit(); 
+         session.getTransaction().commit(); 
     }
 
     @Override
@@ -54,5 +56,34 @@ public class VendasDAO extends DAO_Abstract {
         session.getTransaction().commit();
         return lista;
     }
+     
+     public List listData(Date data){
+        session.beginTransaction();
+        Criteria crit = session.createCriteria(MebVendas.class);
+        crit.add(Restrictions.ge("mebData", data));
+        List lista = crit.list();
+        session.getTransaction().commit();
+        return lista;
+    }
     
+    public List listTotal(double mebTotal){
+        session.beginTransaction();
+        Criteria crit = session.createCriteria(MebVendas.class);
+        crit.add(Restrictions.like("mebTotal", mebTotal));
+        List lista = crit.list();
+        session.getTransaction().commit();
+        return lista;
+    }
+    
+   
+    public List listDataTotal(Date data , double mebTotal){
+        session.beginTransaction();
+        Criteria crit = session.createCriteria(MebVendas.class);
+        crit.add(Restrictions.ge("mebData", data));
+        crit.add(Restrictions.like("mebTotal", mebTotal));
+        List lista = crit.list();
+        session.getTransaction().commit();
+        return lista;
+    }
+
 }

@@ -1,5 +1,6 @@
 package dao;
 
+import bean.MebVendas;
 import bean.MebVendasProduto;
 import java.util.List;
 import org.hibernate.Criteria;
@@ -16,7 +17,7 @@ public class VendasProdutoDAO extends DAO_Abstract{
     public void insert(Object object) {
          session.beginTransaction();// todas as conexão com os bancos de dados precisam de uma...
          session.save(object);
-         session.beginTransaction().commit();
+         session.getTransaction().commit();
         
     }
 //não precisa colocar flush e clear porque o no insert apenas esta inserindo, não colo o delete e update que esta "alterandO" o banco
@@ -26,7 +27,7 @@ public class VendasProdutoDAO extends DAO_Abstract{
          session.flush();// para limpar o cash do hibernate para não enviar coisas erras
          session.clear();// para limpar o cash do hibernate para não enviar coisas erras
          session.update(object);
-         session.beginTransaction().commit();  
+         session.getTransaction().commit();  
     }
 
     @Override
@@ -35,7 +36,7 @@ public class VendasProdutoDAO extends DAO_Abstract{
          session.flush();
          session.clear();
          session.delete(object);
-         session.beginTransaction().commit(); 
+         session.getTransaction().commit(); 
     }
 
     @Override
@@ -56,6 +57,22 @@ public class VendasProdutoDAO extends DAO_Abstract{
         List lista = criteria.list();
         session.getTransaction().commit();
         return lista;
+        
+        
     }  
+    
+//    public PedidoProdutoDAO(){
+//      super(new MebVendasProduto().getClass(idMebVendasProduto));
+//    }
+    
+    public List listProdutos(MebVendas mebVendas){
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(MebVendasProduto.class);   
+        criteria.add(Restrictions.eq("mebVendas", mebVendas));
+        List lista = criteria.list();
+        session.getTransaction().commit();
+        return lista;
+        
+    }
 }
 

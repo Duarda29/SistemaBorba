@@ -78,7 +78,7 @@ public class JDlgClientes extends javax.swing.JDialog {
         clientes.setMebBairro(jTxt_Meb_Bairro.getText() );
         clientes.setMebCep(jFmt_Meb_Cep.getText());
         clientes.setMebNumCasa(jTxt_Meb_NumCasa.getText() );
-        clientes.setMebPais( jCbo_Meb_Pais.getSelectedIndex());
+        clientes.setMebPais( jCbo_Meb_Pais.getSelectedIndex());        
         clientes.setMebEstado( jCbo_Meb_Estado.getSelectedIndex());
         clientes.setMebCelular(jFmt_Meb_Celular.getText());
         clientes.setMebTelefoneResidencial(jFmt_Meb_TelefoneResidencial.getText());
@@ -195,6 +195,11 @@ public class JDlgClientes extends javax.swing.JDialog {
         jLabel12.setText("Estados");
 
         jCbo_Meb_Estado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AC", "AL", "AP", "AM", "BA", "CE", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO", "DF", "PJC - Paraguai" }));
+        jCbo_Meb_Estado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCbo_Meb_EstadoActionPerformed(evt);
+            }
+        });
 
         jLabel13.setText("Celular");
 
@@ -484,6 +489,10 @@ public class JDlgClientes extends javax.swing.JDialog {
         Util.mensagem("Operação cancelada");
 
     }//GEN-LAST:event_jBtn_Meb_CancelarActionPerformed
+
+    private void jCbo_Meb_EstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCbo_Meb_EstadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCbo_Meb_EstadoActionPerformed
 
     /**
      * @param args the command line arguments

@@ -2,6 +2,7 @@
 package view;
 
 import bean.MebVendasProduto;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
@@ -13,26 +14,28 @@ public class VendasProdutoController extends AbstractTableModel{ // esse control
     
     //Tem esses três métodos porque é um dos poucos requerimentos para criar esse método abstrato
     
-    List lista;
+    List lista = new ArrayList();
     
     public void setList(List lista){
-    
        this.lista = lista; //colocar o this porque esta se referindo a lista da classe
        this.fireTableDataChanged();
         
     }
     
-    public MebVendasProduto getBean(int row){ //pegar a linha do bean
-    return (MebVendasProduto) lista.get(row);
+    public MebVendasProduto getBean(int index){ //pegar a linha do bean
+    return (MebVendasProduto) lista.get(index);
     }
     
 
     @Override
     public int getRowCount() {//quantidade de linhas
+        
         //decidir quantas linhas vai ter
     return lista.size(); //vai mostrar apenas a quantidade de registros que tiver no banco de dados
     }
 
+    
+    
     @Override
     public int getColumnCount() {//quantidade de colunas
     return 4; //decidir quantas colunas vai ter
@@ -48,7 +51,7 @@ if ( columnIndex == 0) {
         }
 
 if ( columnIndex == 1) {
-         return mebVendasProduto.getMebVendas();   
+         return mebVendasProduto.getMebProdutos();   
         }
 
 if ( columnIndex == 2) {
@@ -69,11 +72,11 @@ return "";
     @Override
     public String getColumnName(int column){
         if ( column == 0) {
-         return "id";   
+         return "Id";   
         }
         
         if ( column == 1) {
-         return "Vendas";   
+         return "Produto";   
         }
         
         if ( column == 2) {
@@ -81,10 +84,28 @@ return "";
         }
         
         if ( column == 3) {
-         return "ValorUni";   
+         return "valor Unitário";   
         }
         
         
         return "";
     }
+    
+    
+     public void addBean(MebVendasProduto mebVendasProduto) {
+        lista.add(mebVendasProduto);
+        this.fireTableDataChanged();
+    }
+
+     public void removeBean(int index) {
+        lista.remove(index);
+        this.fireTableDataChanged();
+
+       
+    }
+    public void updateBean(int index, MebVendasProduto mebVendasProduto) {
+        lista.set(index, mebVendasProduto);
+        this.fireTableDataChanged();
+    }
+    
 }

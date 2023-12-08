@@ -52,16 +52,13 @@ if ( columnIndex == 1) {
         }
 
 if ( columnIndex == 2) {
-         return mebVendas.getMebUsuarios();   
-        }
-
-if ( columnIndex == 3) {
          return mebVendas.getMebData();   
         }
 
-if ( columnIndex == 4) {
+if ( columnIndex == 3) {
          return mebVendas.getMebTotal();   
         }
+
 
 
 return "";
@@ -72,7 +69,7 @@ return "";
     @Override
     public String getColumnName(int column){
         if ( column == 0) {
-         return "id";   
+         return "Id";   
         }
         
         if ( column == 1) {
@@ -80,14 +77,10 @@ return "";
         }
         
         if ( column == 2) {
-         return "Usuarios";   
-        }
-        
-        if ( column == 3) {
          return "Data";   
         }
         
-        if ( column == 4) {
+        if ( column == 3) {
          return "Total";   
         }
       

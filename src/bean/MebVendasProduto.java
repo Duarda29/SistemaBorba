@@ -1,10 +1,12 @@
 package bean;
-// Generated 25/09/2023 11:58:18 by Hibernate Tools 4.3.1
+// Generated 04/12/2023 10:00:31 by Hibernate Tools 4.3.1
 
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -37,7 +39,7 @@ public class MebVendasProduto  implements java.io.Serializable {
        this.mebValorUni = mebValorUni;
     }
    
-     @Id 
+     @Id @GeneratedValue(strategy=IDENTITY)
 
     
     @Column(name="id_meb_vendasProduto", unique=true, nullable=false)
@@ -49,7 +51,7 @@ public class MebVendasProduto  implements java.io.Serializable {
         this.idMebVendasProduto = idMebVendasProduto;
     }
 
-@ManyToOne(fetch=FetchType.LAZY)
+@ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="fk_meb_produtos", nullable=false)
     public MebProdutos getMebProdutos() {
         return this.mebProdutos;
@@ -59,7 +61,7 @@ public class MebVendasProduto  implements java.io.Serializable {
         this.mebProdutos = mebProdutos;
     }
 
-@ManyToOne(fetch=FetchType.LAZY)
+@ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="fk_meb_vendas", nullable=false)
     public MebVendas getMebVendas() {
         return this.mebVendas;

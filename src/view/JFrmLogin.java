@@ -5,7 +5,10 @@
  */
 package view;
 
+import bean.MebUsuarios;
 import javax.swing.JOptionPane;
+import dao.UsuariosDAO;
+
 
 /**
  *
@@ -117,17 +120,7 @@ public class JFrmLogin extends javax.swing.JFrame {
     private void jBtn_Meb_ConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtn_Meb_ConfirmarActionPerformed
         // TODO add your handling code here:
 
-        if(jTxt_Meb_Usuario.getText().equals("Borba") && jPsw_Meb_Senha.getText().equals("1991") || jTxt_Meb_Usuario.getText().equals("Pizzaria") && jPsw_Meb_Senha.getText().equals("12345")){
-            JOptionPane.showMessageDialog(null, "ACESSO PERMITIDO");
-            JFrmPrincipal jFrmPrincipal= new JFrmPrincipal();
-            jFrmPrincipal.setVisible(true);
-
-            
-
-        }else{
-            JOptionPane.showMessageDialog(null, "ACESSO NEGADO");
-        }
-
+   
     }//GEN-LAST:event_jBtn_Meb_ConfirmarActionPerformed
 
     /**

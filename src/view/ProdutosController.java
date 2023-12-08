@@ -41,7 +41,7 @@ public class ProdutosController extends AbstractTableModel {
         
     MebProdutos mebProdutos = (MebProdutos) lista.get(row);
         if (column == 0) {
-           return mebProdutos.getIdMebProdutos();
+           return mebProdutos.getMebValorUnitario();
         } 
         if (column == 1) {
            return mebProdutos.getMebNomeProduto();
@@ -59,7 +59,7 @@ public class ProdutosController extends AbstractTableModel {
      @Override
      public String getColumnName(int column) {
         if (column == 0) {
-            return "Id";
+            return "Valor";
         }
         if (column == 1) {
             return "Nome";

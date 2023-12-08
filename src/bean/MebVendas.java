@@ -1,17 +1,14 @@
 package bean;
-// Generated 25/09/2023 11:58:18 by Hibernate Tools 4.3.1
+// Generated 04/12/2023 10:00:31 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -42,7 +39,7 @@ public class MebVendas  implements java.io.Serializable {
         this.mebUsuarios = mebUsuarios;
         this.mebTotal = mebTotal;
     }
-    public MebVendas(int idMebVendas, MebClientes mebClientes, MebUsuarios mebUsuarios, double mebTotal, Date mebData, Set mebVendasProdutos) {
+    public MebVendas(int idMebVendas, MebClientes mebClientes, MebUsuarios mebUsuarios, double mebTotal, Date mebData) {
        this.idMebVendas = idMebVendas;
        this.mebClientes = mebClientes;
        this.mebUsuarios = mebUsuarios;
@@ -62,7 +59,7 @@ public class MebVendas  implements java.io.Serializable {
         this.idMebVendas = idMebVendas;
     }
 
-@ManyToOne(fetch=FetchType.LAZY)
+@ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="fk_meb_clientes", nullable=false)
     public MebClientes getMebClientes() {
         return this.mebClientes;
@@ -72,7 +69,7 @@ public class MebVendas  implements java.io.Serializable {
         this.mebClientes = mebClientes;
     }
 
-@ManyToOne(fetch=FetchType.LAZY)
+@ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="fk_meb_usuario", nullable=false)
     public MebUsuarios getMebUsuarios() {
         return this.mebUsuarios;
@@ -101,6 +98,7 @@ public class MebVendas  implements java.io.Serializable {
     public void setMebData(Date mebData) {
         this.mebData = mebData;
     }
+
 
 }
 
